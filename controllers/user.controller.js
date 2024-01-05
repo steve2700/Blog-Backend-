@@ -57,7 +57,7 @@ const userController = {
   },
 
   // Update Profile
-  updateProfile: [authMiddleware, async (req, res) => {
+  updateProfile: authMiddleware, async (req, res) => {
     try {
       const { username, email, profile } = req.body;
       const userId = req.user._id;
@@ -77,7 +77,7 @@ const userController = {
   }],
 
   // Delete Account
-  deleteAccount: [authMiddleware, async (req, res) => {
+  deleteAccount: authMiddleware, async (req, res) => {
     try {
       const userId = req.user._id;
 
