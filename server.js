@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+// Import userRoutes
+const userRoutes = require('./routes/userRoutes');
+
 dotenv.config();
 
 const app = express();
@@ -15,7 +18,7 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI, {
   //useNewUrlParser: true,
   //useUnifiedTopology: true,
-  //useCreateIndex: true, // Update this line
+  //useCreateIndex: true,
 });
 
 const db = mongoose.connection;
@@ -25,11 +28,12 @@ db.once('open', () => {
   console.log('Connected to MongoDB, you can now start to test your endpoint');
 });
 
-// Define routes
-// Add your routes here
+// Use userRoutes
+app.use('/api/users', userRoutes);
 
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
 
