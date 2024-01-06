@@ -13,16 +13,16 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
+  //useNewUrlParser: true,
+  //useUnifiedTopology: true,
+  //useCreateIndex: true, // Update this line
 });
 
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
-  console.log('Connected to MongoDB');
+  console.log('Connected to MongoDB, you can now start to test your endpoint');
 });
 
 // Define routes
