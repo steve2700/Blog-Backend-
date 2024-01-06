@@ -56,25 +56,24 @@ const userController = {
     }
   },
 
-  // Update Profile
-  updateProfile: authMiddleware, async (req, res) => {
-    try {
-      const { username, email, profile } = req.body;
-      const userId = req.user._id;
+  updateProfile: authMiddleware, async function(req, res) {
+  try {
+    const { username, email, profile } = req.body;
+    const userId = req.user._id;
 
-      const existingUser = await User.findOne({ $and: [{ _id: { $ne: userId } }, { $or: [{ username }, { email }] }] });
-      if (existingUser) {
-        return res.status(400).json({ message: 'Username or email already exists.' });
-      }
-
-      const updatedUser = await User.findByIdAndUpdate(userId, { username, email, profile }, { new: true });
-
-      res.status(200).json({ user: updatedUser });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    const existingUser = await User.findOne({ $and: [{ _id: { $ne: userId } }, { $or: [{ username }, { email }] }] });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username or email already exists.' });
     }
-  }],
+
+    const updatedUser = await User.findByIdAndUpdate(userId, { username, email, profile }, { new: true });
+
+    res.status(200).json({ user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+},
 
   // Delete Account
   deleteAccount: authMiddleware, async (req, res) => {
