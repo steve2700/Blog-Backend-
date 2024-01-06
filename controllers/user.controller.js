@@ -76,19 +76,18 @@ const userController = {
 },
 
   // Delete Account
-  deleteAccount: authMiddleware, async (req, res) => {
-    try {
-      const userId = req.user._id;
+deleteAccount: authMiddleware, async function(req, res) {
+  try {
+    const userId = req.user._id;
 
-      await User.findByIdAndDelete(userId);
+    await User.findByIdAndDelete(userId);
 
-      res.status(200).json({ message: 'Account deleted successfully.' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  }],
-};
+    res.status(200).json({ message: 'Account deleted successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+},
 
 module.exports = userController;
 
