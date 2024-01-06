@@ -56,38 +56,39 @@ const userController = {
     }
   },
 
-  updateProfile: authMiddleware, async function(req, res) {
-  try {
-    const { username, email, profile } = req.body;
-    const userId = req.user._id;
+  // Update Profile
+  updateProfile: authMiddleware, async (req, res) => {
+    try {
+      const { username, email, profile } = req.body;
+      const userId = req.user._id;
 
-    const existingUser = await User.findOne({ $and: [{ _id: { $ne: userId } }, { $or: [{ username }, { email }] }] });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Username or email already exists.' });
+      const existingUser = await User.findOne({ $and: [{ _id: { $ne: userId } }, { $or: [{ username }, { email }] }] });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Username or email already exists.' });
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(userId, { username, email, profile }, { new: true });
+
+      res.status(200).json({ user: updatedUser });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
-
-    const updatedUser = await User.findByIdAndUpdate(userId, { username, email, profile }, { new: true });
-
-    res.status(200).json({ user: updatedUser });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-},
+  },
 
   // Delete Account
-deleteAccount: authMiddleware, async function(req, res) {
-  try {
-    const userId = req.user._id;
+  deleteAccount: authMiddleware, async (req, res) => {
+    try {
+      const userId = req.user._id;
 
-    await User.findByIdAndDelete(userId);
+      await User.findByIdAndDelete(userId);
 
-    res.status(200).json({ message: 'Account deleted successfully.' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+      res.status(200).json({ message: 'Account deleted successfully.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
-},
+};
 
 module.exports = userController;
-
