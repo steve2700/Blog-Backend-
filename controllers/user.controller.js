@@ -79,31 +79,28 @@ const userController = {
     }
   },
 
+  // Update Profile
+  updateProfile: authMiddleware, async function (req, res) {
+    try {
+      const { username, email, profile } = req.body;
+      const userId = req.user._id;
 
-   // update account
+      const existingUser = await User.findOne({ $and: [{ _id: { $ne: userId } }, { $or: [{ username }, { email }] }] });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Username or email already exists.' });
+      }
 
-   updateProfile: authMiddleware, async function(req, res) {
-  try {
-    const { username, email, profile } = req.body;
-    const userId = req.user._id;
+      const updatedUser = await User.findByIdAndUpdate(userId, { username, email, profile }, { new: true });
 
-    const existingUser = await User.findOne({ $and: [{ _id: { $ne: userId } }, { $or: [{ username }, { email }] }] });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Username or email already exists.' });
+      res.status(200).json({ user: updatedUser });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
-
-    const updatedUser = await User.findByIdAndUpdate(userId, { username, email, profile }, { new: true });
-
-    res.status(200).json({ user: updatedUser });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-},
-
+  },
 
   // Delete Account
-  deleteAccount: authMiddleware, async function(req, res)  {
+  deleteAccount: authMiddleware, async function (req, res) {
     try {
       const userId = req.user._id;
 
@@ -117,7 +114,9 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-	forgotPassword: async (req, res) => {
+
+  // Forgot Password
+  forgotPassword: async (req, res) => {
     try {
       const { email } = req.body;
 
@@ -136,14 +135,6 @@ const userController = {
       await user.save();
 
       // Send an email with the reset link
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD,
-        },
-      });
-
       const resetLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
       const mailOptions = {
         from: process.env.EMAIL_USERNAME,
@@ -170,4 +161,5 @@ const userController = {
 };
 
 module.exports = { userController, forgotPassword, googleSignup, googleCallback };
+
 

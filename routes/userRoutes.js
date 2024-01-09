@@ -1,7 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const { userController, forgotPassword } = require('../controllers/user.controller');
-const passport = require('passport');
 
 const router = express.Router();
 
