@@ -3,9 +3,8 @@ const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const authMiddleware = require('../middlewares/auth.Middleware');
-const passport = require('passport'); // missing this line
-const GoogleStrategy = require('passport-google-oauth20').Strategy; // forgot this
-
+const passport = require('passport'); // Add this line
+const GoogleStrategy = require('passport-google-oauth20').Strategy; // Add this line
 
 dotenv.config();
 
@@ -92,53 +91,49 @@ const userController = {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }
-};
-// Update the Google strategy callback in user.controller.js
-passport.use(new GoogleStrategy({
-  clientID: '160112374519-3qqt8p8cpbde98bn4p9puocin3gfhomc.apps.googleusercontent.com',
-  clientSecret: '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',
-  callbackURL: 'http://localhost:3001',
-},
-async (accessToken, refreshToken, profile, done) => {
-  try {
-    // Check if the user exists based on Google profile ID
-    let user = await User.findOne({ googleId: profile.id });
+  },
 
-    if (!user) {
-      // If the user doesn't exist, create a new user with Google profile information
-      user = new User({
-        username: profile.displayName,
-        email: profile.emails[0].value,
-        // Add other relevant profile information
-        googleId: profile.id,
-      });
+  // Update the Google strategy callback in user.controller.js
+  googleStrategyCallback: passport.use(new GoogleStrategy({
+    clientID: '160112374519-3qqt8p8cpbde98bn4p9puocin3gfhomc.apps.googleusercontent.com',
+    clientSecret: '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',
+    callbackURL: 'http://localhost:3001',
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      // Check if the user exists based on Google profile ID
+      let user = await User.findOne({ googleId: profile.id });
 
-      await user.save();
+      if (!user) {
+        // If the user doesn't exist, create a new user with Google profile information
+        user = new User({
+          username: profile.displayName,
+          email: profile.emails[0].value,
+          // Add other relevant profile information
+          googleId: profile.id,
+        });
+
+        await user.save();
+      }
+
+      // Pass the user object to the passport callback
+      return done(null, user);
+    } catch (error) {
+      return done(error, null);
     }
+  })),
+};
 
-    // Pass the user object to the passport callback
-    return done(null, user);
-  } catch (error) {
-    return done(error, null);
-  }
-}));
 // Add routes to handle Google signup/login
 const googleSignup = passport.authenticate('google', { scope: ['profile', 'email'] });
-
 const googleCallback = passport.authenticate('google', {
   failureRedirect: '/',
   successRedirect: '/', // Redirect to the home page after successful login
 });
 
 module.exports = {
-  signup,
-  login,
-  updateProfile,
-  deleteAccount,
+  userController,
   googleSignup,
   googleCallback,
 };
-
-module.exports = userController;
 
