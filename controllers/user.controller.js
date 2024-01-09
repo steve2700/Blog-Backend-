@@ -3,6 +3,9 @@ const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const authMiddleware = require('../middlewares/auth.Middleware');
+const passport = require('passport'); // missing this line
+const GoogleStrategy = require('passport-google-oauth20').Strategy; // forgot this
+
 
 dotenv.config();
 
