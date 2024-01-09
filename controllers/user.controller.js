@@ -23,6 +23,55 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Configure Google Strategy
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL,
+},
+async (accessToken, refreshToken, profile, done) => {
+  // Check if the user already exists in your database
+  try {
+    const existingUser = await User.findOne({ googleId: profile.id });
+
+    if (existingUser) {
+      // If user exists, generate JWT token and return it
+      const token = generateToken(existingUser);
+      return done(null, token);
+    }
+
+    // If user doesn't exist, create a new user in your database
+    const newUser = new User({
+      username: profile.displayName,
+      email: profile.emails[0].value,
+      // Add any additional fields you want to save for the user
+      googleId: profile.id,
+    });
+
+    await newUser.save();
+
+    // Generate JWT token for the new user
+    const token = generateToken(newUser);
+
+    // Return the token
+    return done(null, token);
+  } catch (error) {
+    console.error(error);
+    return done(error, null);
+  }
+}));
+
+// Serialize user for session
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+// Deserialize user for session
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
+
+
 // Forgot Password
 const forgotPassword = async (req, res) => {
   try {
@@ -151,8 +200,17 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
+	// Google Signup
+  googleSignup: passport.authenticate('google', { scope: ['profile', 'email'] }),
 
+  // Google Callback
+  googleCallback: passport.authenticate('google', {
+    failureRedirect: '/',
+    successRedirect: '/', // Redirect to the home page after successful login
+  }),
 };
 
+
 module.exports = { userController, forgotPassword, googleSignup, googleCallback };
+
 
