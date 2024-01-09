@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const bcrypt = require('bcryptjs'); // Updated import
 
-// Import userRoutes
+// import userRoute
 const userRoutes = require('./routes/userRoutes');
+
 
 dotenv.config();
 
@@ -35,5 +37,4 @@ app.use('/api/users', userRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
 

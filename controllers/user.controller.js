@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs'); // Updated import
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -57,7 +58,7 @@ const userController = {
   },
 
   // Update Profile
-  updateProfile: authMiddleware, async (req, res) => {
+  updateProfile: authMiddleware, async function(req, res) {
     try {
       const { username, email, profile } = req.body;
       const userId = req.user._id;
@@ -77,7 +78,7 @@ const userController = {
   },
 
   // Delete Account
-  deleteAccount: authMiddleware, async (req, res) => {
+  deleteAccount: authMiddleware, async function(req, res) {
     try {
       const userId = req.user._id;
 
@@ -92,3 +93,4 @@ const userController = {
 };
 
 module.exports = userController;
+
