@@ -1,14 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs'); // Updated import
+const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 
 // import userRoute
 const userRoutes = require('./routes/userRoutes');
-
 
 dotenv.config();
 
@@ -17,6 +16,12 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(express.json());
+app.use(session({ secret: process.env.SECRET_KEY, resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((obj, done) => done(null, obj));
 
 passport.use(new GoogleStrategy({
   clientID: '160112374519-3qqt8p8cpbde98bn4p9puocin3gfhomc.apps.googleusercontent.com',
@@ -60,12 +65,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB, you can now start to test your endpoint');
 });
-app.use(session({ secret: process.env.SECRET_KEY, resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((obj, done) => done(null, obj));
 // Use userRoutes
 app.use('/api/users', userRoutes);
 
