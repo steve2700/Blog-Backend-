@@ -23,10 +23,47 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Forgot Password
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Check if the email exists in the database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Generate a reset token and set an expiration time
+    const resetToken = jwt.sign({ userId: user._id }, process.env.RESET_SECRET, { expiresIn: '1h' });
+
+    // Save the reset token and expiration time to the user document
+    user.resetToken = resetToken;
+    user.resetTokenExpiration = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // Send an email with the reset link
+    const resetLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+    const mailOptions = {
+      from: process.env.EMAIL_USERNAME,
+      to: email,
+      subject: 'Password Reset',
+      text: `Click the following link to reset your password: ${resetLink}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: 'Password reset instructions sent to your email.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 // User controller
 const userController = {
   // Signup
-  signup: async (req, res) => {
+  signup: async function (req, res) {
     try {
       const { username, email, password } = req.body;
 
@@ -52,7 +89,7 @@ const userController = {
   },
 
   // Login
-  login: async (req, res) => {
+  login: async function (req, res) {
     try {
       const { username, password } = req.body;
 
@@ -115,51 +152,7 @@ const userController = {
     }
   },
 
-  // Forgot Password
-  forgotPassword: async (req, res) => {
-    try {
-      const { email } = req.body;
-
-      // Check if the email exists in the database
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: 'User not found.' });
-      }
-
-      // Generate a reset token and set an expiration time
-      const resetToken = jwt.sign({ userId: user._id }, process.env.RESET_SECRET, { expiresIn: '1h' });
-
-      // Save the reset token and expiration time to the user document
-      user.resetToken = resetToken;
-      user.resetTokenExpiration = Date.now() + 3600000; // 1 hour
-      await user.save();
-
-      // Send an email with the reset link
-      const resetLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
-      const mailOptions = {
-        from: process.env.EMAIL_USERNAME,
-        to: email,
-        subject: 'Password Reset',
-        text: `Click the following link to reset your password: ${resetLink}`,
-      };
-
-      await transporter.sendMail(mailOptions);
-
-      res.status(200).json({ message: 'Password reset instructions sent to your email.' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  },
-
-  // Google Signup/Login
-  googleSignup: passport.authenticate('google', { scope: ['profile', 'email'] }),
-  googleCallback: passport.authenticate('google', {
-    failureRedirect: '/',
-    successRedirect: '/', // Redirect to the home page after successful login
-  }),
 };
 
 module.exports = { userController, forgotPassword, googleSignup, googleCallback };
-
 
