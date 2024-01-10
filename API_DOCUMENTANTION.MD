@@ -28,3 +28,18 @@
 - **Response:**
   - Status Code: `200 OK`
   - Body: `{ token: 'jwt-token' }`
+## Forgot Password
+
+- **URL:** `/api/users/forgot-password`
+- **Method:** `POST`
+- **Request:**
+  - Body:
+    - `email` (string): User's registered email address
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body: `{ message: "Password reset instructions sent to your email." }`
+  - Status Code: `404 Not Found`
+  - Body: `{ message: "User not found." }`
+  - Status Code: `500 Internal Server Error`
+  - Body: `{ message: "Internal Server Error" }`
