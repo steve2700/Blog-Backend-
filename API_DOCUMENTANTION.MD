@@ -4,7 +4,7 @@
 
 ### signup User
 
-- **URL:** `/api/user/signup`
+- **URL:** `/api/users/signup`
 - **Method:** `POST`
 - **Request:**
   - Body:
@@ -18,7 +18,7 @@
 
 ### Login User
 
-- **URL:** `/api/user/login`
+- **URL:** `/api/users/login`
 - **Method:** `POST`
 - **Request:**
   - Body:
