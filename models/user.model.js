@@ -1,3 +1,4 @@
+// giving the user the best experience 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -33,6 +34,10 @@ const userSchema = new mongoose.Schema({
   },
   resetToken: String,
   resetTokenExpiration: Date,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
 }, { timestamps: true });
 
 // Hash password before saving to the database

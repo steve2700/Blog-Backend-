@@ -109,9 +109,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-// User controller
 const userController = {
-  // Signup
   signup: async function (req, res) {
     try {
       const { username, email, password } = req.body;
@@ -124,18 +122,35 @@ const userController = {
 
       // Create a new user
       const newUser = new User({ username, email, password });
+
+      // Save the user to the database
       await newUser.save();
 
-      // Generate JWT token
-      const token = generateToken(newUser);
+      // Generate a verification token
+      const verificationToken = jwt.sign({ userId: newUser._id }, process.env.VERIFICATION_SECRET, {
+        expiresIn: '1h', // Set an expiration time for the verification token
+      });
 
-      // Return the token and user information
-      res.status(201).json({ token, user: newUser });
+      // Construct the verification link
+      const verificationLink = `${process.env.CLIENT_URL}/verify-email/${verificationToken}`;
+
+      // Send the verification email
+      const mailOptions = {
+        from: process.env.EMAIL_USERNAME,
+        to: email,
+        subject: 'Email Verification',
+        text: `Click the following link to verify your email: ${verificationLink}`,
+      };
+
+      await transporter.sendMail(mailOptions);
+
+      res.status(201).json({ message: 'Account created successfully. Check your email for verification.' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
+
 
   // Login
   login: async function (req, res) {
