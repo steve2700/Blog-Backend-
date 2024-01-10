@@ -42,4 +42,37 @@ A successful signup will return a token and user information.
   }
 }
 
+## Log In
+
+Endpoint: `POST /api/users/login`
+
+Logs in an existing user.
+
+### Request Body
+
+- `username` (string, required)
+- `password` (string, required)
+
+### Sample Request
+
+```json
+POST /api/users/login
+{
+  "username": "exampleUser",
+  "password": "strongPassword123"
+}
+Response
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "username": "exampleUser",
+    "email": "user@example.com",
+    "profile": "No profile information available.",
+    "role": "user",
+    "_id": "uniqueUserId",
+    "createdAt": "timestamp",
+    "updatedAt": "timestamp",
+    "__v": 0
+  }
+}
 
