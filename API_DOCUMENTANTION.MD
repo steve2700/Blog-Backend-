@@ -1,43 +1,20 @@
-# Blog Post Backend API Documentation
+# API Documentation
 
-## Users
+## User Endpoints
 
-### Sign Up
+### signup User
 
-Endpoint: `POST /api/users/signup`
+- **URL:** `/api/user/signup`
+- **Method:** `POST`
+- **Request:**
+  - Body:
+    - `username` (string): User's username
+    - `email` (string): User's email
+    - `password` (string - strong password with one uppercase one special character): User's password
 
-Creates a new user account.
-
-#### Request Body
-
-- `username` (string, required, 6 to 20 characters)
-- `email` (string, required, valid email format)
-- `password` (string, required, at least 6 characters)
-
-#### Sample Request
-
-```json
-POST /api/users/signup
-{
-  "username": "exampleUser",
-  "email": "user@example.com",
-  "password": "strongPassword123"
-}
-Response
-A successful signup will return a token and user information.
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "username": "exampleUser",
-    "email": "user@example.com",
-    "profile": "No profile information available.",
-    "role": "user",
-    "_id": "uniqueUserId",
-    "createdAt": "timestamp",
-    "updatedAt": "timestamp",
-    "__v": 0
-  }
-}
+- **Response:**
+  - Status Code: `201 Created`
+  - Body: `{ "message": "User created successfully" }`
 
 ### Login User
 
@@ -51,4 +28,3 @@ A successful signup will return a token and user information.
 - **Response:**
   - Status Code: `200 OK`
   - Body: `{ token: 'jwt-token' }`
-
