@@ -63,3 +63,44 @@
   - Status Code: `500 Internal Server Error`
   - Body: `{ message: "Internal Server Error" }`
 
+## Delete Account
+
+- **URL:** `/api/user/delete-account`
+- **Method:** `DELETE`
+- **Authorization:** Bearer Token (Include the user's JWT token in the Authorization header)
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body: `{ message: "Account deleted successfully." }`
+  - Status Code: `500 Internal Server Error`
+  - Body: `{ message: "Internal Server Error" }`
+
+## Google Signup
+
+- **Endpoint:** `/api/users/google/signup`
+- **Method:** `GET`
+
+Initiates the Google Sign Up process.
+
+Redirect to Google's authentication page.
+
+## Google Callback
+
+- **Endpoint:** `/api/users/google/callback`
+- **Method:** `GET`
+
+Handles the callback after a successful Google authentication.
+
+Redirects to the home page.
+
+### Error Handling
+
+In case of an error, the API will return a JSON response with an appropriate error message.
+
+Example:
+
+```json
+{
+  "error": "Invalid credentials. Please check your username and password."
+}
+
