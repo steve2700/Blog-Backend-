@@ -38,3 +38,17 @@ A successful signup will return a token and user information.
     "__v": 0
   }
 }
+
+### Login User
+
+- **URL:** `/api/user/login`
+- **Method:** `POST`
+- **Request:**
+  - Body:
+    - `email` (string): User's email
+    - `password` (string): User's password
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body: `{ token: 'jwt-token' }`
+
