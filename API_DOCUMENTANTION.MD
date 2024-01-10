@@ -43,3 +43,23 @@
   - Body: `{ message: "User not found." }`
   - Status Code: `500 Internal Server Error`
   - Body: `{ message: "Internal Server Error" }`
+## Update Profile
+
+- **URL:** `/api/users/update-profile`
+- **Method:** `PUT`
+- **Authorization:** Bearer Token (Include the user's JWT token in the Authorization header)
+
+- **Request:**
+  - Body:
+    - `username` (string): New username for the user
+    - `email` (string): New email for the user
+    - `profile` (string): New profile information for the user
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body: `{ user: { updated user object } }`
+  - Status Code: `400 Bad Request`
+  - Body: `{ message: "Username or email already exists." }`
+  - Status Code: `500 Internal Server Error`
+  - Body: `{ message: "Internal Server Error" }`
+
