@@ -200,7 +200,8 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-	// Google Signup
+   
+   // Google Signup
   googleSignup: passport.authenticate('google', { scope: ['profile', 'email'] }),
 
   // Google Callback
@@ -211,6 +212,6 @@ const userController = {
 };
 
 
-module.exports = { userController, forgotPassword, googleSignup, googleCallback };
+module.exports = { userController, forgotPassword };
 
 
