@@ -23,3 +23,18 @@ POST /api/users/signup
   "email": "user@example.com",
   "password": "strongPassword123"
 }
+Response
+A successful signup will return a token and user information.
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "username": "exampleUser",
+    "email": "user@example.com",
+    "profile": "No profile information available.",
+    "role": "user",
+    "_id": "uniqueUserId",
+    "createdAt": "timestamp",
+    "updatedAt": "timestamp",
+    "__v": 0
+  }
+}
