@@ -20,6 +20,7 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD,
+    pass: process.env.EMAIL_APP_PASSWORD,
   },
 });
 
@@ -225,8 +226,44 @@ const userController = {
     successRedirect: '/', // Redirect to the home page after successful login
   }),
 };
+// Function to verify the user's email
+const verifyEmail = async (req, res) => {
+  try {
+    const { verificationToken } = req.params;
+
+    // Decode the verification token
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(verificationToken, process.env.VERIFICATION_SECRET);
+    } catch (error) {
+      if (error.name === 'TokenExpiredError') {
+        return res.status(400).json({ message: 'Verification token has expired.' });
+      }
+      throw error;
+    }
+
+    // Check if the token is valid
+    if (!decodedToken || !decodedToken.userId) {
+      return res.status(400).json({ message: 'Invalid verification token.' });
+    }
+
+    // Update the user's isVerified field in the database
+    const user = await User.findByIdAndUpdate(decodedToken.userId, { isVerified: true });
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json({ message: 'Email verification successful.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 
 
-module.exports = { userController, forgotPassword };
+module.exports = { userController, forgotPassword, verifyEmail };
+
 
 
