@@ -48,6 +48,7 @@ router.get('/google/signup', userController.googleSignup);
 
 // Google Callback route
 router.get('/google/callback', userController.googleCallback);
+
 // Add a new route for email verification
 router.get('/verify-email/:verificationToken', userController.verifyEmail);
 
