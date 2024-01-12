@@ -39,6 +39,10 @@ router.post('/login', userController.login);
 // Update Profile route
 router.put('/update-profile', authMiddleware, userController.updateProfile);
 
+// change password route
+router.put('/change-password', authMiddleware, userController.changePassword);
+
+
 // Delete Account route
 router.delete('/delete-account', userController.deleteAccount);
 
