@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passwordValidator = require('password-validator');
-const { userController, forgotPassword } = require('../controllers/user.controller');
+const { userController, forgotPassword, verifyEmail } = require('../controllers/user.controller');
 
 // Create a password schema
 const passwordSchema = new passwordValidator();

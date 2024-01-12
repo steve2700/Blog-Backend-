@@ -261,9 +261,11 @@ const userController = {
     failureRedirect: '/',
     successRedirect: '/', // Redirect to the home page after successful login
   }),
+  
+  verifyEmail: verifyEmail,
 };
 
-module.exports = { userController, forgotPassword, verifyEmail };
+module.exports = { userController, forgotPassword };
 
 
 
