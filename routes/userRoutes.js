@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passwordValidator = require('password-validator');
 const { userController, forgotPassword, verifyEmail } = require('../controllers/user.controller');
+const authMiddleware = require('../middlewares/auth.middleware'); // Make sure the path is correct
+
 
 // Create a password schema
 const passwordSchema = new passwordValidator();
@@ -35,7 +37,7 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', userController.login);
 
 // Update Profile route
-router.put('/update-profile', userController.updateProfile);
+router.put('/update-profile', authMiddleware, userController.updateProfile);
 
 // Delete Account route
 router.delete('/delete-account', userController.deleteAccount);

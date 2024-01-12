@@ -217,7 +217,7 @@ const userController = {
   },
 
   // Update Profile
-  updateProfile: authMiddleware, async function (req, res) {
+  updateProfile: async function (req, res) {
     try {
       const { username, email, profile } = req.body;
       const userId = req.user._id;
