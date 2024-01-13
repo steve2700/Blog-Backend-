@@ -235,29 +235,33 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-    // Change Password
   changePassword: async function (req, res) {
-    try {
-      const { currentPassword, newPassword } = req.body;
-      const userId = req.user._id;
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user._id;
 
-      const user = await User.findById(userId);
+    const user = await User.findById(userId);
 
-      // Check if the current password is valid
-      const isPasswordValid = await user.comparePassword(currentPassword);
-      if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Current password is incorrect.' });
-      }
+    console.log('User:', user);
 
-      // Update the password
-      await user.updatePassword(newPassword);
-
-      res.status(200).json({ message: 'Password updated successfully.' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    // Check if the current password is valid
+    const isPasswordValid = await user.comparePassword(currentPassword);
+    if (!isPasswordValid) {
+      console.log('Invalid Password');
+      return res.status(401).json({ message: 'Current password is incorrect.' });
     }
-  },
+
+    // Update the password
+    await user.updatePassword(newPassword);
+
+    console.log('Password updated successfully');
+
+    res.status(200).json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
 
 
   // Delete Account
