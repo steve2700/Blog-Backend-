@@ -235,6 +235,7 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
+  // change password function
   changePassword: async function (req, res) {
   try {
     const { currentPassword, newPassword } = req.body;
@@ -242,10 +243,9 @@ const userController = {
 
     const user = await User.findById(userId);
 
-    console.log('User:', user);
-
     // Check if the current password is valid
     const isPasswordValid = await user.comparePassword(currentPassword);
+
     if (!isPasswordValid) {
       console.log('Invalid Password');
       return res.status(401).json({ message: 'Current password is incorrect.' });
@@ -256,14 +256,21 @@ const userController = {
 
     console.log('Password updated successfully');
 
+    // Attempt to login with the new password to ensure it's working
+    const isLoginSuccessful = await user.comparePassword(newPassword);
+
+    if (!isLoginSuccessful) {
+      console.log('Login with new password failed');
+      return res.status(500).json({ message: 'Password update successful, but login failed.' });
+    }
+
     res.status(200).json({ message: 'Password updated successfully.' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 },
-
-
+            
   // Delete Account
   deleteAccount: authMiddleware, async function (req, res) {
     try {
