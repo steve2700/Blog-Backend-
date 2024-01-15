@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passwordValidator = require('password-validator');
-const { userController, forgotPassword, verifyEmail } = require('../controllers/user.controller');
+const { userController, forgotPassword, verifyEmail, changePassword} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware'); // Make sure the path is correct
 
 
