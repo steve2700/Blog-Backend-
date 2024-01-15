@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passwordValidator = require('password-validator');
-const { userController, forgotPassword, verifyEmail, changePassword} = require('../controllers/user.controller');
+const { userController, forgotPassword, verifyEmail} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware'); // Make sure the path is correct
 
 
@@ -40,7 +40,7 @@ router.post('/login', userController.login);
 router.put('/update-profile', authMiddleware, userController.updateProfile);
 
 // change password route
-router.put('/change-password', authMiddleware, changePassword);
+router.put('/change-password', authMiddleware, changePassword);// there is a bug in this feature 
 
 
 // Delete Account route
