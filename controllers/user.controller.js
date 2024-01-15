@@ -272,7 +272,7 @@ const userController = {
 },
             
   // Delete Account
-  deleteAccount: authMiddleware, async function (req, res) {
+  deleteAccount: async function (req, res) {
     try {
       const userId = req.user._id;
 
