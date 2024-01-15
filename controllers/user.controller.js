@@ -6,22 +6,13 @@ const authMiddleware = require('../middlewares/auth.Middleware');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const nodemailer = require('nodemailer');
-const passwordValidator = require('password-validator');
+
 
 dotenv.config();
 // Function to generate JWT token
 const generateToken = (user) => {
   return jwt.sign({ _id: user._id, username: user.username, email: user.email }, process.env.SECRET_KEY, { expiresIn: '1h' });
 };
-// Create a password schema
-const passwordSchema = new passwordValidator();
-passwordSchema
-  .is().min(6)            // Minimum length 6
-  .has().uppercase()      // Must have uppercase letters
-  .has().lowercase()      // Must have lowercase letters
-  .has().digits(1)        // Must have at least 1 digit
-  .has().symbols(1)       // Must have at least 1 symbol
-  .is().not().spaces();   // Should not have spaces
 
 
 // Nodemailer transporter
