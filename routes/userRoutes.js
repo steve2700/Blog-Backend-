@@ -44,7 +44,7 @@ router.put('/change-password', authMiddleware, userController.changePassword);
 
 
 // Delete Account route
-router.delete('/delete-account', userController.deleteAccount);
+router.delete('/delete-account', authMiddleware, userController.deleteAccount);
 
 // Forgot Password route
 router.post('/forgot-password', forgotPassword);
