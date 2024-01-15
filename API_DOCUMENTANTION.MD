@@ -65,7 +65,7 @@
 
 ## Delete Account
 
-- **URL:** `/api/user/delete-account`
+- **URL:** `/api/users/delete-account`
 - **Method:** `DELETE`
 - **Authorization:** Bearer Token (Include the user's JWT token in the Authorization header)
 
