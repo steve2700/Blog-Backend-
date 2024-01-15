@@ -7,6 +7,11 @@ const session = require('express-session');
 
 // Import User model
 const User = require('./models/user.model'); // Add this line
+const Post = require('./models/post.model'); // Add this line
+
+
+// import post route
+const postRoutes = require('./routes/postRoutes'); // Add this line
 
 // Import userRoutes
 const userRoutes = require('./routes/userRoutes');
@@ -70,6 +75,8 @@ db.once('open', () => {
 
 // Use userRoutes
 app.use('/api/users', userRoutes);
+// use PostRoutes
+app.use('/api/posts', postRoutes);
 
 // Start the server
 app.listen(PORT, () => {

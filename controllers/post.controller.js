@@ -1,7 +1,8 @@
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const Category = require('../models/category.model');
-const Comment = require('../models/comment.model');
+const Comment = require('../models/comment');
+const Category = require('../models/category');
+
 const authMiddleware = require('../middlewares/auth.Middleware');
 
 const postController = {
