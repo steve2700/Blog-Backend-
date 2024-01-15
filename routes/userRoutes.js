@@ -40,7 +40,7 @@ router.post('/login', userController.login);
 router.put('/update-profile', authMiddleware, userController.updateProfile);
 
 // change password route
-router.put('/change-password', authMiddleware, userController.changePassword);
+router.put('/change-password', authMiddleware, changePassword);
 
 
 // Delete Account route
