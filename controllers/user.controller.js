@@ -235,42 +235,54 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-  // change password function
+  // change password
   changePassword: async function (req, res) {
-  try {
-    const { currentPassword, newPassword } = req.body;
-    const userId = req.user._id;
+    try {
+      const { currentPassword, newPassword } = req.body;
+      const userId = req.user._id;
 
-    const user = await User.findById(userId);
+      const user = await User.findById(userId);
 
-    // Check if the current password is valid
-    const isPasswordValid = await user.comparePassword(currentPassword);
+      // Check if the current password is valid
+      const isPasswordValid = await user.comparePassword(currentPassword);
 
-    if (!isPasswordValid) {
-      console.log('Invalid Password');
-      return res.status(401).json({ message: 'Current password is incorrect.' });
+      if (!isPasswordValid) {
+        console.log('Invalid Password');
+        return res.status(401).json({ message: 'Current password is incorrect.' });
+      }
+
+      // Validate the new password
+      const isNewPasswordValid = passwordSchema.validate(newPassword);
+
+      if (!isNewPasswordValid) {
+        console.log('New Password does not meet the required criteria.');
+        return res.status(400).json({
+          message: 'New Password does not meet the required criteria.',
+          errors: passwordSchema.validate(newPassword, { list: true }),
+        });
+      }
+
+      // Update the password
+      await user.updatePassword(newPassword);
+
+      console.log('Password updated successfully');
+
+      // Attempt to login with the new password to ensure it's working
+      const isLoginSuccessful = await user.comparePassword(newPassword);
+
+      if (!isLoginSuccessful) {
+        console.log('Login with new password failed');
+        return res.status(500).json({ message: 'Password update successful, but login failed.' });
+      }
+
+      res.status(200).json({ message: 'Password updated successfully.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
-
-    // Update the password
-    await user.updatePassword(newPassword);
-
-    console.log('Password updated successfully');
-
-    // Attempt to login with the new password to ensure it's working
-    const isLoginSuccessful = await user.comparePassword(newPassword);
-
-    if (!isLoginSuccessful) {
-      console.log('Login with new password failed');
-      return res.status(500).json({ message: 'Password update successful, but login failed.' });
-    }
-
-    res.status(200).json({ message: 'Password updated successfully.' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-},
-            
+  },
+  
+         
   // Delete Account
   deleteAccount: async function (req, res) {
     try {
