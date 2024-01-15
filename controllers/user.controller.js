@@ -6,13 +6,23 @@ const authMiddleware = require('../middlewares/auth.Middleware');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const nodemailer = require('nodemailer');
+const passwordValidator = require('password-validator');
 
 dotenv.config();
-
 // Function to generate JWT token
 const generateToken = (user) => {
   return jwt.sign({ _id: user._id, username: user.username, email: user.email }, process.env.SECRET_KEY, { expiresIn: '1h' });
 };
+// Create a password schema
+const passwordSchema = new passwordValidator();
+passwordSchema
+  .is().min(6)            // Minimum length 6
+  .has().uppercase()      // Must have uppercase letters
+  .has().lowercase()      // Must have lowercase letters
+  .has().digits(1)        // Must have at least 1 digit
+  .has().symbols(1)       // Must have at least 1 symbol
+  .is().not().spaces();   // Should not have spaces
+
 
 // Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -234,55 +244,7 @@ const userController = {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  },
-  // change password
-  changePassword: async function (req, res) {
-    try {
-      const { currentPassword, newPassword } = req.body;
-      const userId = req.user._id;
-
-      const user = await User.findById(userId);
-
-      // Check if the current password is valid
-      const isPasswordValid = await user.comparePassword(currentPassword);
-
-      if (!isPasswordValid) {
-        console.log('Invalid Password');
-        return res.status(401).json({ message: 'Current password is incorrect.' });
-      }
-
-      // Validate the new password
-      const isNewPasswordValid = passwordSchema.validate(newPassword);
-
-      if (!isNewPasswordValid) {
-        console.log('New Password does not meet the required criteria.');
-        return res.status(400).json({
-          message: 'New Password does not meet the required criteria.',
-          errors: passwordSchema.validate(newPassword, { list: true }),
-        });
-      }
-
-      // Update the password
-      await user.updatePassword(newPassword);
-
-      console.log('Password updated successfully');
-
-      // Attempt to login with the new password to ensure it's working
-      const isLoginSuccessful = await user.comparePassword(newPassword);
-
-      if (!isLoginSuccessful) {
-        console.log('Login with new password failed');
-        return res.status(500).json({ message: 'Password update successful, but login failed.' });
-      }
-
-      res.status(200).json({ message: 'Password updated successfully.' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  },
-  
-         
+  },       
   // Delete Account
   deleteAccount: async function (req, res) {
     try {
@@ -311,8 +273,45 @@ const userController = {
   
   verifyEmail: verifyEmail,
 };
+const changePassword = async function (req, res) {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user._id;
 
-module.exports = { userController, forgotPassword };
+    const user = await User.findById(userId);
+
+    // Check if the current password is valid
+    const isPasswordValid = await user.comparePassword(currentPassword);
+
+    if (!isPasswordValid) {
+      console.log('Invalid Password');
+      return res.status(401).json({ message: 'Current password is incorrect.' });
+    }
+
+    // Update the password
+    await user.updatePassword(newPassword);
+
+    console.log('Password updated successfully');
+
+    // Attempt to login with the new password to ensure it's working
+    const isLoginSuccessful = await user.comparePassword(newPassword);
+
+    if (!isLoginSuccessful) {
+      console.log('Login with new password failed');
+      return res.status(500).json({ message: 'Password update successful, but login failed.' });
+    }
+
+    res.status(200).json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+
+
+module.exports = { userController, forgotPassword, changePassword};
 
 
 
