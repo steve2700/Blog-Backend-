@@ -9,6 +9,10 @@ const categorySchema = new mongoose.Schema({
     maxlength: 30,
   },
 }, { timestamps: true });
+// Define a custom method to delete a category
+categorySchema.methods.deleteCategory = async function () {
+  return this.remove();
+};
 
 const Category = mongoose.model('Category', categorySchema);
 
