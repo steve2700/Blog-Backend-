@@ -114,10 +114,10 @@ Example:
 
 Request:
 
-Body:
+**Body:**
 -name (string): Category name
-Response:
+**Response:**
 
 -Status Code: 201 Created
-Body:
-{ "category": { "_id": "65a62d275192616d58e6eab1", "name": "Technology", "createdAt": "2024-01-16T07:15:51.558Z", "updatedAt": "2024-01-16T07:15:51.558Z", "__v": 0 } }
+-Body:
+**{ "category": { "_id": "65a62d275192616d58e6eab1", "name": "Technology", "createdAt": "2024-01-16T07:15:51.558Z", "updatedAt": "2024-01-16T07:15:51.558Z", "__v": 0 } }**
