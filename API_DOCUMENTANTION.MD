@@ -124,7 +124,7 @@ Request:
 
 ### List Categories
 
-- **URL:** `/api/categories`
+- **URL:** `/api/categories/list`
 - **Method:** `GET`
 - **Authorization:** Bearer Token Required
 - **Response:**
