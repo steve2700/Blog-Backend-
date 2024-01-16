@@ -140,7 +140,7 @@ Request:
     }***
 ### Update Category
 
-- **URL:** `/api/categories/:categoryId`
+- **URL:** `/api/categories/:categoryId/update`
 - **Method:** `PUT`
 - **Authorization:** Bearer Token Required
 - **Request:**
@@ -153,6 +153,8 @@ Request:
   - **Body:**
     ```json
     { "category": { "_id": "65a62d6c5192616d58e6eaba", "name": "News", "createdAt": "2024-01-16T07:17:00.254Z", "updatedAt": "2024-01-16T07:20:00.000Z", "__v": 0 } }
+
+
     
     
 
