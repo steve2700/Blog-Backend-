@@ -99,7 +99,7 @@ In case of an error, the API will return a JSON response with an appropriate err
 
 Example:
 
-```json
+
 {
   "error": "Invalid credentials. Please check your username and password."
 }
