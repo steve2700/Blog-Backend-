@@ -121,3 +121,22 @@ Request:
 -Status Code: 201 Created
 -Body:
 **{ "category": { "_id": "65a62d275192616d58e6eab1", "name": "Technology", "createdAt": "2024-01-16T07:15:51.558Z", "updatedAt": "2024-01-16T07:15:51.558Z", "__v": 0 } }**
+
+### List Categories
+
+- **URL:** `/api/categories`
+- **Method:** `GET`
+- **Authorization:** Bearer Token Required
+- **Response:**
+  - **Status Code:** `200 OK`
+  - **Body:**
+    json
+    **{ "categories": [
+        { "_id": "65a62d275192616d58e6eab1", "name": "Technology", "createdAt": "2024-01-16T07:15:51.558Z", "updatedAt": "2024-01-16T07:15:51.558Z", "__v": 0 },
+        { "_id": "65a62d455192616d58e6eab4", "name": "Science", "createdAt": "2024-01-16T07:16:21.073Z", "updatedAt": "2024-01-16T07:16:21.073Z", "__v": 0 },
+        { "_id": "65a62d565192616d58e6eab7", "name": "Sports and culture", "createdAt": "2024-01-16T07:16:38.100Z", "updatedAt": "2024-01-16T07:16:38.100Z", "__v": 0 },
+        { "_id": "65a62d6c5192616d58e6eaba", "name": "NEWS AND HISTORY", "createdAt": "2024-01-16T07:17:00.254Z", "updatedAt": "2024-01-16T07:17:00.254Z", "__v": 0 }
+      ]
+    }***
+    
+
