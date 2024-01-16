@@ -111,7 +111,8 @@ const postController = {
       }
 
       // Delete the post
-      await post.remove();
+      await Post.deleteOne({ _id: postId });
+
 
       res.status(200).json({ message: 'Post deleted successfully.' });
     } catch (error) {
