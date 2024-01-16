@@ -77,7 +77,7 @@ const commentController = {
       }
 
       // Delete the comment
-      await comment.remove();
+      await Comment.deleteOne({ _id: commentId });
 
       res.status(200).json({ message: 'Comment deleted successfully.' });
     } catch (error) {
