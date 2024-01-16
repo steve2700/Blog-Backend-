@@ -6,6 +6,7 @@ const postSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 100,
+    trim: true, // Remove leading and trailing whitespaces
   },
   content: {
     type: String,
@@ -30,6 +31,14 @@ const postSchema = new mongoose.Schema({
   ],
   imageUrl: {
     type: String,
+    validate: {
+      validator: function (value) {
+        // Basic URL validation
+        const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+        return urlRegex.test(value);
+      },
+      message: 'Invalid image URL format',
+    },
   },
 }, { timestamps: true });
 

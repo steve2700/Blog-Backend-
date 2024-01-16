@@ -85,6 +85,7 @@ app.use('/api/posts', postRoutes);
 // Use categoryRoutes
 app.use('/api/categories', categoryRoutes);
 
+
 // use commentRoutes
 app.use('/api/comments', commentRoutes);
 
