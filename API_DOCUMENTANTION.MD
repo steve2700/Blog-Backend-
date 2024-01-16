@@ -1,5 +1,29 @@
 # API Documentation
 
+
+## Table of Contents
+- [User Endpoints](#user-endpoints)
+  - [Signup User](#signup-user)
+  - [Login User](#login-user)
+  - [Forgot Password](#forgot-password)
+  - [Update Profile](#update-profile)
+  - [Delete Account](#delete-account)
+  - [Google Signup](#google-signup)
+  - [Google Callback](#google-callback)
+  - [Error Handling](#error-handling)
+
+- [Category Endpoints](#category-endpoints)
+  - [Create Category](#create-category)
+  - [Update Category](#update-category)
+  - [List Categories](#list-categories)
+  - [Delete Category](#delete-category)
+  
+- [Comment Endpoints](#comment-endpoints)
+  - [Create Comment](#create-comment)
+  - [Update Comment](#update-comment)
+  - [Delete Comment](#delete-comment)
+  - [List Comments for a Post](#list-comments-for-a-post)
+
 ## User Endpoints
 
 ### signup User
