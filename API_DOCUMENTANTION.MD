@@ -186,6 +186,20 @@ Request:
   - **Body:**
     ```json
     { "category": { "_id": "65a62d6c5192616d58e6eaba", "name": "News", "createdAt": "2024-01-16T07:17:00.254Z", "updatedAt": "2024-01-16T07:20:00.000Z", "__v": 0 } }
+### Delete Category
+
+- **URL:** `/api/categories/:categoryId`
+- **Method:** `DELETE`
+- **Authorization:** Bearer Token Required
+- **Request:**
+  - **Params:**
+    - `categoryId` (string): ID of the category to be deleted
+- **Response:**
+  - **Status Code:** `200 OK`
+  - **Body:**
+    ```json
+    { "message": "Category deleted successfully." }
+    
     
 
     
