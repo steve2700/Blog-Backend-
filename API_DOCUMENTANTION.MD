@@ -120,8 +120,24 @@ Request:
 
 -Status Code: 201 Created
 -Body:
-```json
-{ "category": { "_id": "65a62d275192616d58e6eab1", "name": "Technology", "createdAt": "2024-01-16T07:15:51.558Z", "updatedAt": "2024-01-16T07:15:51.558Z", "__v": 0 } }
+
+**{ "category": { "_id": "65a62d275192616d58e6eab1", "name": "Technology", "createdAt": "2024-01-16T07:15:51.558Z", "updatedAt": "2024-01-16T07:15:51.558Z", "__v": 0 } }**
+
+### Update Category
+- **URL:** `/api/categories/:categoryId`
+- **Method:** `PUT`
+- **Authorization:** Bearer Token Required
+- **Request:**
+  - **Params:**
+    - `categoryId` (string): ID of the category to be updated
+  - **Body:**
+    - `name` (string): New category name
+- **Response:**
+  - **Status Code:** `200 OK`
+  - **Body:**
+    ```json
+    { "category": { "_id": "65a62d6c5192616d58e6eaba", "name": "News", "createdAt": "2024-01-16T07:17:00.254Z", "updatedAt": "2024-01-16T07:20:00.000Z", "__v": 0 } }
+    ```
 
 ### List Categories
 
@@ -131,7 +147,7 @@ Request:
 - **Response:**
   - **Status Code:** `200 OK`
   - **Body:**
-    ```json
+    
     { "categories": [
         { "_id": "65a62d275192616d58e6eab1", "name": "Technology", "createdAt": "2024-01-16T07:15:51.558Z", "updatedAt": "2024-01-16T07:15:51.558Z", "__v": 0 },
         { "_id": "65a62d455192616d58e6eab4", "name": "Science", "createdAt": "2024-01-16T07:16:21.073Z", "updatedAt": "2024-01-16T07:16:21.073Z", "__v": 0 },
