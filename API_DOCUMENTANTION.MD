@@ -200,7 +200,28 @@ Request:
     ```json
     { "message": "Category deleted successfully." }
     
-    
+ ### Create Comment
+
+- **URL:** `/api/comments`
+- **Method:** `POST`
+- **Request:**
+  - Body:
+    - `postId` (string): ID of the post where the comment will be created
+    - `text` (string): Text content of the comment
+
+- **Response:**
+  - Status Code: `201 Created`
+  - Body:
+    ```json
+    {
+      "comment": {
+        "text": "string",
+        "author": "userId",
+        "post": "postId"
+      }
+    }
+
+   
 
     
     
