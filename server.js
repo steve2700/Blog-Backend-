@@ -8,10 +8,12 @@ const session = require('express-session');
 // Import User model
 const User = require('./models/user.model'); // Add this line
 const Post = require('./models/post.model'); // Add this line
-
+const Category = require('./models/category');
 
 // import post route
 const postRoutes = require('./routes/postRoutes'); // Add this line
+// Import Category routes
+const categoryRoutes = require('./routes/categoryRoutes');
 
 // Import userRoutes
 const userRoutes = require('./routes/userRoutes');
@@ -77,6 +79,9 @@ db.once('open', () => {
 app.use('/api/users', userRoutes);
 // use PostRoutes
 app.use('/api/posts', postRoutes);
+// Use categoryRoutes
+app.use('/api/categories', categoryRoutes);
+
 
 // Start the server
 app.listen(PORT, () => {

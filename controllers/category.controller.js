@@ -1,4 +1,4 @@
-const Category = require('../models/category.model');
+const Category = require('../models/category');
 const authMiddleware = require('../middlewares/auth.Middleware');
 
 const categoryController = {
