@@ -9,6 +9,7 @@ const session = require('express-session');
 const User = require('./models/user.model'); // Add this line
 const Post = require('./models/post.model'); // Add this line
 const Category = require('./models/category');
+const Comment = require('./models/comment');
 
 // import post route
 const postRoutes = require('./routes/postRoutes'); // Add this line
@@ -17,6 +18,8 @@ const categoryRoutes = require('./routes/categoryRoutes');
 
 // Import userRoutes
 const userRoutes = require('./routes/userRoutes');
+// Import CommentRoutes
+const commentRoutes = require('./routes/comment.routes');
 
 dotenv.config();
 
@@ -82,6 +85,8 @@ app.use('/api/posts', postRoutes);
 // Use categoryRoutes
 app.use('/api/categories', categoryRoutes);
 
+// use commentRoutes
+app.use('/api/comments', commentRoutes);
 
 // Start the server
 app.listen(PORT, () => {

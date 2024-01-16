@@ -16,7 +16,7 @@ const commentController = {
         return res.status(404).json({ message: 'Post not found.' });
       }
 
-      const newComment = new Comment({ text, author: userId });
+      const newComment = new Comment({ text, author: userId, post: postId });
       await newComment.save();
 
       // Add the comment to the post
