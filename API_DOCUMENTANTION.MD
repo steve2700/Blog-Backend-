@@ -251,13 +251,23 @@ Request:
     {
       "message": "Comment deleted successfully."
     }
-  
+### List Comments for a Post
 
+- **URL:** `/api/comments/:postId`
+- **Method:** `GET`
 
-
-
-   
-
-    
-    
-
+- **Response:**
+  - Status Code: `200 OK`
+  - Body:
+    ```json
+    {
+      "comments": [
+        {
+          "text": "string",
+          "author": {
+            // User details
+          }
+        },
+        // Additional comments...
+      ]
+    }
