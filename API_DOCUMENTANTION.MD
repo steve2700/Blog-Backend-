@@ -1,5 +1,29 @@
 # API Documentation
 
+
+## Table of Contents
+- [User Endpoints](#user-endpoints)
+  - [Signup User](#signup-user)
+  - [Login User](#login-user)
+  - [Forgot Password](#forgot-password)
+  - [Update Profile](#update-profile)
+  - [Delete Account](#delete-account)
+  - [Google Signup](#google-signup)
+  - [Google Callback](#google-callback)
+  - [Error Handling](#error-handling)
+
+- [Category Endpoints](#category-endpoints)
+  - [Create Category](#create-category)
+  - [Update Category](#update-category)
+  - [List Categories](#list-categories)
+  - [Delete Category](#delete-category)
+  
+- [Comment Endpoints](#comment-endpoints)
+  - [Create Comment](#create-comment)
+  - [Update Comment](#update-comment)
+  - [Delete Comment](#delete-comment)
+  - [List Comments for a Post](#list-comments-for-a-post)
+
 ## User Endpoints
 
 ### signup User
@@ -200,8 +224,74 @@ Request:
     ```json
     { "message": "Category deleted successfully." }
     
-    
+ ### Create Comment
 
-    
-    
+- **URL:** `/api/comments`
+- **Method:** `POST`
+- **Request:**
+  - Body:
+    - `postId` (string): ID of the post where the comment will be created
+    - `text` (string): Text content of the comment
 
+- **Response:**
+  - Status Code: `201 Created`
+  - Body:
+    ```json
+    {
+      "comment": {
+        "text": "string",
+        "author": "userId",
+        "post": "postId"
+      }
+    }
+### Update Comment
+
+- **URL:** `/api/comments/:commentId`
+- **Method:** `PUT`
+- **Request:**
+  - Body:
+    - `text` (string): New text content of the comment
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body:
+    ```json
+    {
+      "comment": {
+        "text": "string",
+        "author": "userId",
+        "post": "postId"
+      }
+    }
+### Delete Comment
+
+- **URL:** `/api/comments/:commentId`
+- **Method:** `DELETE`
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body:
+    ```json
+    {
+      "message": "Comment deleted successfully."
+    }
+### List Comments for a Post
+
+- **URL:** `/api/comments/:postId`
+- **Method:** `GET`
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body:
+    ```json
+    {
+      "comments": [
+        {
+          "text": "string",
+          "author": {
+            // User details
+          }
+        },
+        // Additional comments...
+      ]
+    }
