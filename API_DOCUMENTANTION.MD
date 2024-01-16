@@ -220,6 +220,27 @@ Request:
         "post": "postId"
       }
     }
+### Update Comment
+
+- **URL:** `/api/comments/:commentId`
+- **Method:** `PUT`
+- **Request:**
+  - Body:
+    - `text` (string): New text content of the comment
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body:
+    ```json
+    {
+      "comment": {
+        "text": "string",
+        "author": "userId",
+        "post": "postId"
+      }
+    }
+    
+
 
    
 
