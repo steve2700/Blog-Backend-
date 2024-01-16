@@ -81,7 +81,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 // Use categoryRoutes
 app.use('/api/categories', categoryRoutes);
-
+// use CommentsRoute
+app.use('/api/comments', commentRoutes);
 
 // Start the server
 app.listen(PORT, () => {
