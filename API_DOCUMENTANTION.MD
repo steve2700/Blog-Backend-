@@ -239,7 +239,21 @@ Request:
         "post": "postId"
       }
     }
-    
+### Delete Comment
+
+- **URL:** `/api/comments/:commentId`
+- **Method:** `DELETE`
+
+- **Response:**
+  - Status Code: `200 OK`
+  - Body:
+    ```json
+    {
+      "message": "Comment deleted successfully."
+    }
+  
+
+
 
 
    
