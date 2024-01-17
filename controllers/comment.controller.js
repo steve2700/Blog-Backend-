@@ -1,6 +1,7 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
+const Like = require('../models/like');
 const authMiddleware = require('../middlewares/auth.Middleware');
 
 const commentController = {

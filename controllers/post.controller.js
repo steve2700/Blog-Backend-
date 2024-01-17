@@ -2,6 +2,7 @@ const Post = require('../models/post.model');
 const User = require('../models/user.model');
 const Comment = require('../models/comment');
 const Category = require('../models/category');
+const Like = require('../models/like');
 
 const authMiddleware = require('../middlewares/auth.Middleware');
 

@@ -6,6 +6,10 @@ const likeSchema = new mongoose.Schema({
     ref: 'Post',
     required: true,
   },
+  comment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment',
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

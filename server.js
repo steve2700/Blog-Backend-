@@ -10,6 +10,7 @@ const User = require('./models/user.model'); // Add this line
 const Post = require('./models/post.model'); // Add this line
 const Category = require('./models/category');
 const Comment = require('./models/comment');
+const Like  = require('./models/like');
 
 // import post route
 const postRoutes = require('./routes/postRoutes'); // Add this line
@@ -19,8 +20,9 @@ const categoryRoutes = require('./routes/categoryRoutes');
 // Import userRoutes
 const userRoutes = require('./routes/userRoutes');
 // Import CommentRoutes
-const commentRoutes = require('./routes/comment.routes');
-
+const commentRoutes = require('./routes/commentRoutes');
+// import likeRoutes
+const likeRoutes = require('./routes/like.routes');
 dotenv.config();
 
 const app = express();
@@ -88,7 +90,8 @@ app.use('/api/categories', categoryRoutes);
 
 // use commentRoutes
 app.use('/api/comments', commentRoutes);
-
+// Use the like routes
+app.use('/api', likeRoutes);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
