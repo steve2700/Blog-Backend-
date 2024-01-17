@@ -24,6 +24,17 @@
   - [Delete Comment](#delete-comment)
   - [List Comments for a Post](#list-comments-for-a-post)
 
+- [Express.js Endpoints](#expressjs-endpoints)
+  - [Overview](#overview)
+  - [Endpoints](#endpoints)
+    - [Like a Post or Comment](#like-a-post-or-comment)
+    - [Unlike a Post or Comment](#unlike-a-post-or-comment)
+    - [List Likes for a Post or Comment](#list-likes-for-a-post-or-comment)
+  - [Usage](#usage)
+  - [Example](#example)
+
+
+  
 ## User Endpoints
 
 ### signup User
