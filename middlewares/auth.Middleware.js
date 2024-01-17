@@ -9,6 +9,7 @@ const authMiddleware = (req, res, next) => {
   // Log the incoming token for debugging
   console.log('Incoming Token:', token);
 
+
   if (!token) {
     return res.status(401).json({ message: 'Access denied. No token provided.' });
   }

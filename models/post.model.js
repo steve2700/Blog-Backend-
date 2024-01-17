@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 100,
-    trim: true, // Remove leading and trailing whitespaces
+    trim: true,
   },
   content: {
     type: String,
@@ -29,11 +29,16 @@ const postSchema = new mongoose.Schema({
       ref: 'Comment',
     },
   ],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Like',
+    },
+  ],
   imageUrl: {
     type: String,
     validate: {
       validator: function (value) {
-        // Basic URL validation
         const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
         return urlRegex.test(value);
       },

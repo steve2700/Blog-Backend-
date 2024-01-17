@@ -91,7 +91,7 @@ app.use('/api/categories', categoryRoutes);
 // use commentRoutes
 app.use('/api/comments', commentRoutes);
 // Use the like routes
-app.use('/api', likeRoutes);
+app.use('/api/likes', likeRoutes);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

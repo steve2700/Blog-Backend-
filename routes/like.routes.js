@@ -4,6 +4,8 @@ const authMiddleware = require('../middlewares/auth.Middleware');
 
 const router = express.Router();
 
+// Update the route paths in like.route.js
+
 // Like a Post or Comment
 router.post('/posts/:postId/like', authMiddleware, likeController.like);
 router.post('/comments/:commentId/like', authMiddleware, likeController.like);
