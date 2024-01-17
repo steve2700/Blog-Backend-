@@ -24,6 +24,17 @@
   - [Delete Comment](#delete-comment)
   - [List Comments for a Post](#list-comments-for-a-post)
 
+- [Express.js Endpoints](#expressjs-endpoints)
+  - [Overview](#overview)
+  - [Endpoints](#endpoints)
+    - [Like a Post or Comment](#like-a-post-or-comment)
+    - [Unlike a Post or Comment](#unlike-a-post-or-comment)
+    - [List Likes for a Post or Comment](#list-likes-for-a-post-or-comment)
+  - [Usage](#usage)
+  - [Example](#example)
+
+
+  
 ## User Endpoints
 
 ### signup User
@@ -295,3 +306,71 @@ Request:
         // Additional comments...
       ]
     }
+
+
+## Like
+
+This module defines Express.js endpoints for handling likes on posts and comments. The routes are secured using authentication middleware.
+
+## Endpoints
+
+### Like a Post or Comment
+
+- **Method:** POST
+- **URL:** `/posts/:postId/like`
+- **Middleware:** `authMiddleware`
+- **Controller:** `likeController.like`
+
+- **Method:** POST
+- **URL:** `/comments/:commentId/like`
+- **Middleware:** `authMiddleware`
+- **Controller:** `likeController.like`
+
+### Unlike a Post or Comment
+
+- **Method:** DELETE
+- **URL:** `/posts/:postId/unlike`
+- **Middleware:** `authMiddleware`
+- **Controller:** `likeController.unlike`
+
+- **Method:** DELETE
+- **URL:** `/comments/:commentId/unlike`
+- **Middleware:** `authMiddleware`
+- **Controller:** `likeController.unlike`
+
+### List Likes for a Post or Comment
+
+- **Method:** GET
+- **URL:** `/posts/:postId/likes`
+- **Controller:** `likeController.listLikes`
+
+- **Method:** GET
+- **URL:** `/comments/:commentId/likes`
+- **Controller:** `likeController.listLikes`
+
+## Usage
+
+1. **Like a Post or Comment:**
+   - Send a POST request to the respective endpoint with the `postId` or `commentId`.
+   - Requires authentication using the `authMiddleware`.
+
+2. **Unlike a Post or Comment:**
+   - Send a DELETE request to the respective endpoint with the `postId` or `commentId`.
+   - Requires authentication using the `authMiddleware`.
+
+3. **List Likes for a Post or Comment:**
+   - Send a GET request to the respective endpoint with the `postId` or `commentId`.
+   - No authentication required for listing likes.
+
+## Example
+
+```bash
+# Like a post
+curl -X POST -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/posts/123/like
+ http://localhost:3001/api/posts/:postID/like
+# Unlike a comment
+curl -X DELETE -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/comments/456/unlike
+
+# List likes for a post
+curl http://your-api-url/posts/123/likes
+
