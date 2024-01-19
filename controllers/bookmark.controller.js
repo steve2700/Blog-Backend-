@@ -1,7 +1,7 @@
 const Bookmark = require('../models/bookmark.model');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const authMiddleware = require('../middlewares/auth.Middleware');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 const bookmarkController = {
   // Bookmark a Post
@@ -61,19 +61,21 @@ const bookmarkController = {
   }],
 
   // List Bookmarks for a User
-  listBookmarks: [authMiddleware, async (req, res) => {
-    try {
-      const userId = req.user._id;
+  listBookmarks: function(req, res) {
+    authMiddleware(req, res, async () => {
+      try {
+        const userId = req.user._id;
 
-      // Get the bookmarks for the user
-      const bookmarks = await Bookmark.find({ user: userId }).populate('post');
+        // Get the bookmarks for the user
+        const bookmarks = await Bookmark.find({ user: userId }).populate('post');
 
-      res.status(200).json({ bookmarks });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  },
+        res.status(200).json({ bookmarks });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+    });
+  }
 };
 
 module.exports = bookmarkController;

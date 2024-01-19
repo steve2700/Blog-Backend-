@@ -1,6 +1,6 @@
 const express = require('express');
 const bookmarkController = require('../controllers/bookmark.controller');
-const authMiddleware = require('../middlewares/auth.Middleware');
+const authMiddleware = require('../middlewares/auth.Middleware'); // Corrected import
 
 const router = express.Router();
 
