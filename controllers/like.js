@@ -35,18 +35,15 @@ const likeController = {
       return res.status(400).json({ message: `You have already liked this ${parentType}.` });
     }
 
-    // Create a new like
-    const newLikeData = { user: userId, post: null, comment: null };
+    const newLikeData = {
+  user: userId,
+  post: parentType === 'post' ? parent._id : null,
+  comment: parentType === 'comment' ? parent._id : null,
+};
 
-    // Set the appropriate field based on whether it's a post or a comment
-    if (parentType === 'post') {
-      newLikeData.post = parent._id;
-    } else if (parentType === 'comment') {
-      newLikeData.comment = parent._id;
-    }
+const newLike = new Like(newLikeData);
+await newLike.save();
 
-    const newLike = new Like(newLikeData);
-    await newLike.save();
 
     res.status(201).json({ like: newLike });
   } catch (error) {
