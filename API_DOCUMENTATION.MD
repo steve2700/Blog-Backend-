@@ -392,20 +392,6 @@ curl -X DELETE -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/
 # List likes for a post
 curl http://your-api-url/posts/123/likes
 ---
-## bookmark a post
-## Explanation
-
-- **Endpoint:** `/posts/:postId/bookmark`: This is the API endpoint to bookmark a specific post. Replace `:postId` with the ID of the post you want to bookmark.
-
-- **Description:** This endpoint allows the authenticated user to bookmark a post. After making a successful request, the API will respond with a JSON object containing details about the newly created bookmark.
-
-- **Response:** The response will include the following information:
-
-  - `"_id"`: The unique identifier for the newly created bookmark.
-  - `"post"`: The ID of the post that has been bookmarked.
-  - `"user"`: The ID of the authenticated user who bookmarked the post.
-  - `"createdAt"`: The timestamp indicating when the bookmark was created.
----
 
 
 
