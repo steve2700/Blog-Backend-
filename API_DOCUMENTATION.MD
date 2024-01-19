@@ -391,14 +391,8 @@ curl -X DELETE -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/
 
 # List likes for a post
 curl http://your-api-url/posts/123/likes
-
-
-## Bookmark a Post
-
-**Endpoint:** `POST /posts/:postId/bookmark`
-
-**Description:** Bookmark a post for the authenticated user.
-
+---
+## bookmark a post
 ## Explanation
 
 - **Endpoint:** `/posts/:postId/bookmark`: This is the API endpoint to bookmark a specific post. Replace `:postId` with the ID of the post you want to bookmark.
@@ -412,45 +406,6 @@ curl http://your-api-url/posts/123/likes
   - `"user"`: The ID of the authenticated user who bookmarked the post.
   - `"createdAt"`: The timestamp indicating when the bookmark was created.
 ---
-**Response:**
-```json
-{
-  "bookmark": {
-    "_id": "Generated Bookmark ObjectId",
-    "post": "Bookmarked Post ObjectId",
-    "user": "Authenticated User ObjectId",
-    "createdAt": "Timestamp"
-  }
-}
-
-## Unbookmark a Post
-
-**Endpoint:** `DELETE /posts/:postId/unbookmark`
-
-**Description:** Remove a bookmark for the authenticated user.
-
----
-## List Bookmarks for a User
-
-**Endpoint:** `GET /bookmarks`
-
-**Description:** Retrieve a list of bookmarks for the authenticated user.
-
-**Response:**
-```json
-{
-  "bookmarks": [
-    {
-      "_id": "Bookmark ObjectId",
-      "post": {
-        "_id": "Bookmarked Post ObjectId",
-        "title": "Bookmarked Post Title"
-      },
-      "createdAt": "Timestamp"
-    }
-  ]
-}
-
 
 
 
