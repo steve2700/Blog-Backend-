@@ -61,7 +61,8 @@ const bookmarkController = {
   }],
 
   // List Bookmarks for a User
-  listBookmarks: [authMiddleware, async (req, res) => {
+  listBookmarks: function(req, res) {
+  authMiddleware(req, res, async () => {
     try {
       const userId = req.user._id;
 
@@ -73,8 +74,6 @@ const bookmarkController = {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  },
-};
-
+  });
 module.exports = bookmarkController;
 
