@@ -35,6 +35,12 @@ const postSchema = new mongoose.Schema({
       ref: 'Like',
     },
   ],
+  bookmarks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Bookmark',
+    },
+  ],
   imageUrl: {
     type: String,
     validate: {
