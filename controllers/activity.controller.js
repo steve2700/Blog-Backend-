@@ -1,5 +1,5 @@
 const ActivityLog = require('../models/activity.model');
-const authMiddleware = require('../middlewares/auth.Middleware');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 const activityController = {
   // Log Activity
@@ -19,13 +19,15 @@ const activityController = {
     }
   }],
 
-  // List Activity Logs
-  listActivityLogs: [authMiddleware, async (req, res) => {
+  // List User's Activity Logs
+  listUserActivityLogs: [authMiddleware, async (req, res) => {
     try {
-      // Retrieve all activity logs
-      const activityLogs = await ActivityLog.find().populate('user');
+      const userId = req.user._id;
 
-      res.status(200).json({ activityLogs });
+      // Retrieve activity logs for the specific user
+      const userActivityLogs = await ActivityLog.find({ user: userId });
+
+      res.status(200).json({ activityLogs: userActivityLogs });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
