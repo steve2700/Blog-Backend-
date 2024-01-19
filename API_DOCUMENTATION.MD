@@ -33,6 +33,10 @@
   - [Usage](#usage)
   - [Example](#example)
 
+[Bookmarks](#bookmarks)
+   - [Bookmark a Post](#bookmark-a-post)
+   - [Unbookmark a Post](#unbookmark-a-post)
+   - [List Bookmarks for a User](#list-bookmarks-for-a-user)
 
   
 ## User Endpoints
@@ -363,8 +367,6 @@ This module defines Express.js endpoints for handling likes on posts and comment
    - No authentication required for listing likes.
 
 ## Example
-
-```bash
 # Like a post
 curl -X POST -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/posts/123/like
  http://localhost:3001/api/posts/:postID/like
@@ -382,7 +384,43 @@ curl -X POST -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/po
 http://localhost:3001/api/likes/comments/65a686b289e21e2171288317/like
 # Unlike a comment
 curl -X DELETE -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/comments/456/unlike
-
 # List likes for a post
 curl http://your-api-url/posts/123/likes
+# Bookmark a Post
+## Explanation
+
+- **Endpoint:** `/posts/:postId/bookmark`: This is the API endpoint to bookmark a specific post. Replace `:postId` with the ID of the post you want to bookmark.
+
+- **Description:** This endpoint allows the authenticated user to bookmark a post. After making a successful request, the API will respond with a JSON object containing details about the newly created bookmark.
+
+- **Response:** The response will include the following information:
+
+  - `"_id"`: The unique identifier for the newly created bookmark.
+  - `"post"`: The ID of the post that has been bookmarked.
+  - `"user"`: The ID of the authenticated user who bookmarked the post.
+  - `"createdAt"`: The timestamp indicating when the bookmark was created.
+
+
+# Unbookmark a Post
+
+**Endpoint:** `DELETE /posts/:postId/unbookmark`
+
+**Description:** Remove a bookmark for the authenticated user.
+
+# List Bookmarks for a User
+
+**Endpoint:** `GET /bookmarks`
+
+**Description:** Retrieve a list of bookmarks for the authenticated user.
+
+**Response:**
+```json
+GET http://localhost:3001/api/bookmarks/bookmarks
+```
+
+
+
+
+
+
 
