@@ -386,7 +386,6 @@ http://localhost:3001/api/likes/comments/65a686b289e21e2171288317/like
 curl -X DELETE -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/comments/456/unlike
 # List likes for a post
 curl http://your-api-url/posts/123/likes
----
 # Bookmark a Post
 ## Explanation
 
@@ -401,13 +400,13 @@ curl http://your-api-url/posts/123/likes
   - `"user"`: The ID of the authenticated user who bookmarked the post.
   - `"createdAt"`: The timestamp indicating when the bookmark was created.
 
----
+
 # Unbookmark a Post
 
 **Endpoint:** `DELETE /posts/:postId/unbookmark`
 
 **Description:** Remove a bookmark for the authenticated user.
----
+
 # List Bookmarks for a User
 
 **Endpoint:** `GET /bookmarks`
@@ -417,6 +416,7 @@ curl http://your-api-url/posts/123/likes
 **Response:**
 ```json
 GET http://localhost:3001/api/bookmarks/bookmarks
+```
 
 
 
