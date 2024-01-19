@@ -32,11 +32,11 @@
     - [List Likes for a Post or Comment](#list-likes-for-a-post-or-comment)
   - [Usage](#usage)
   - [Example](#example)
+
 [Bookmarks](#bookmarks)
    - [Bookmark a Post](#bookmark-a-post)
    - [Unbookmark a Post](#unbookmark-a-post)
    - [List Bookmarks for a User](#list-bookmarks-for-a-user)
-
 
   
 ## User Endpoints
