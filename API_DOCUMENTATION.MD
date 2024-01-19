@@ -368,6 +368,18 @@ This module defines Express.js endpoints for handling likes on posts and comment
 # Like a post
 curl -X POST -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/posts/123/like
  http://localhost:3001/api/posts/:postID/like
+{
+	"like": {
+		"post": null,
+		"comment": "65a686b289e21e2171288317",
+		"user": "65a8f1a40dfe587b8565631c",
+		"_id": "65aa2ec173bca0845b2744d4",
+		"createdAt": "2024-01-19T08:11:45.923Z",
+		"updatedAt": "2024-01-19T08:11:45.923Z",
+		"__v": 0
+	}
+}
+http://localhost:3001/api/likes/comments/65a686b289e21e2171288317/like
 # Unlike a comment
 curl -X DELETE -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://your-api-url/comments/456/unlike
 
