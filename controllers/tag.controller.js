@@ -7,15 +7,12 @@ const tagController = {
     try {
       const { name } = req.body;
 
-      // Check if the tag name is unique
-      const existingTag = await Tag.findOne({ name });
-      if (existingTag) {
-        return res.status(400).json({ message: 'Tag already exists.' });
-      }
-
-      // Create a new tag
-      const newTag = new Tag({ name });
-      await newTag.save();
+      // Use findOneAndUpdate with upsert to handle uniqueness
+      const newTag = await Tag.findOneAndUpdate(
+        { name },
+        { $setOnInsert: { name } },
+        { upsert: true, new: true, runValidators: true }
+      );
 
       res.status(201).json({ tag: newTag });
     } catch (error) {
@@ -43,20 +40,18 @@ const tagController = {
       const { tagId } = req.params;
       const { name } = req.body;
 
-      // Check if the tag exists
-      const tag = await Tag.findById(tagId);
-      if (!tag) {
+      // Use findOneAndUpdate for atomic updates
+      const updatedTag = await Tag.findOneAndUpdate(
+        { _id: tagId },
+        { $set: { name } },
+        { new: true, runValidators: true }
+      );
+
+      if (!updatedTag) {
         return res.status(404).json({ message: 'Tag not found.' });
       }
 
-      // Check if the user has permission to update the tag
-      // (Add your custom logic for permission checks here if needed)
-
-      // Update the tag name
-      tag.name = name;
-      await tag.save();
-
-      res.status(200).json({ tag });
+      res.status(200).json({ tag: updatedTag });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -68,17 +63,12 @@ const tagController = {
     try {
       const { tagId } = req.params;
 
-      // Check if the tag exists
-      const tag = await Tag.findById(tagId);
-      if (!tag) {
+      // Use findOneAndDelete for atomic deletion
+      const deletedTag = await Tag.findOneAndDelete({ _id: tagId });
+
+      if (!deletedTag) {
         return res.status(404).json({ message: 'Tag not found.' });
       }
-
-      // Check if the user has permission to delete the tag
-      // (Add your custom logic for permission checks here if needed)
-
-      // Delete the tag
-      await tag.remove();
 
       res.status(200).json({ message: 'Tag deleted successfully.' });
     } catch (error) {

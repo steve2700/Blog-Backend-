@@ -12,7 +12,7 @@ const Category = require('./models/category');
 const Comment = require('./models/comment');
 const Like  = require('./models/like');
 const Bookmark = require('./models/bookmark.model')
-
+const Tag  = require('./models/tag.model')
 // import post route
 const postRoutes = require('./routes/postRoutes'); 
 // Import Category routes
@@ -26,6 +26,8 @@ const commentRoutes = require('./routes/commentRoutes');
 const likeRoutes = require('./routes/like.routes');
 // import bookmarkRoutes
 const bookmarkRoutes = require('./routes/bookmark.routes');
+// import tagRoutes
+const tagRoutes = require('./routes/tag.routes'); 
 dotenv.config();
 
 const app = express();
@@ -98,6 +100,9 @@ app.use('/api/likes', likeRoutes);
 
 // use bookmark routes
 app.use('/api/bookmarks', bookmarkRoutes);
+// Use your tag routes
+app.use('/api', tagRoutes);
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
