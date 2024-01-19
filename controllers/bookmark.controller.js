@@ -18,10 +18,12 @@ const bookmarkController = {
 
       // Check if the user has already bookmarked the post
       const existingBookmark = await Bookmark.findOne({ post: postId, user: userId });
+
       if (existingBookmark) {
-        return res.status 400).json({ message: 'You have already bookmarked this post.' });
+        return res.status(400).json({ message: 'You have already bookmarked this post.' });
       }
 
+      // Create a new bookmark
       const newBookmark = new Bookmark({ post: postId, user: userId });
       await newBookmark.save();
 
@@ -38,14 +40,18 @@ const bookmarkController = {
       const { postId } = req.params;
       const userId = req.user._id;
 
+      // Check if the post exists
+      const post = await Post.findById(postId);
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found.' });
+      }
+
       // Check if the bookmark exists
-      const existingBookmark = await Bookmark.findOne({ post: postId, user: userId });
+      const existingBookmark = await Bookmark.findOneAndDelete({ post: postId, user: userId });
+
       if (!existingBookmark) {
         return res.status(400).json({ message: 'You have not bookmarked this post.' });
       }
-
-      // Delete the bookmark
-      await existingBookmark.remove();
 
       res.status(200).json({ message: 'Bookmark removed successfully.' });
     } catch (error) {
