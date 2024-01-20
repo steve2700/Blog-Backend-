@@ -69,6 +69,17 @@
     - [Response](#response)
   - [Authentication](#authentication)
   - [Error Responses](#error-responses)
+- [Rating API Documentation](#rating-api-documentation)
+  - [Overview](#overview)
+  - [Base URL](#base-url)
+  - [Endpoints](#endpoints)
+    - [Rate a Post](#rate-a-post)
+      - [Endpoint](#endpoint)
+      - [Description](#description)
+      - [Request](#request)
+      - [Response](#response)
+  - [Authentication](#authentication)
+  - [Error Responses](#error-responses)
   
 ## User Endpoints
 
