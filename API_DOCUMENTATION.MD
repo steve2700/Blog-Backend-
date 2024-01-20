@@ -38,6 +38,30 @@
    - [Unbookmark a Post](#unbookmark-a-post)
    - [List Bookmarks for a User](#list-bookmarks-for-a-user)
 
+[Create Tag](#create-tag)
+   - [Endpoint](#endpoint)
+   - [Authentication](#authentication)
+   - [Request Body](#request-body)
+   - [Responses](#responses)
+
+2. [List Tags](#list-tags)
+   - [Endpoint](#endpoint-1)
+   - [Responses](#responses-1)
+
+3. [Update Tag](#update-tag)
+   - [Endpoint](#endpoint-2)
+   - [Authentication](#authentication-1)
+   - [Request Parameters](#request-parameters)
+   - [Request Body](#request-body-1)
+   - [Responses](#responses-2)
+
+4. [Delete Tag](#delete-tag)
+   - [Endpoint](#endpoint-3)
+   - [Authentication](#authentication-2)
+   - [Request Parameters](#request-parameters-1)
+   - [Responses](#responses-3)
+
+
   
 ## User Endpoints
 
