@@ -40,7 +40,21 @@ const ratingController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }],
+  listRatings: async (req, res) => {
+    try {
+      const postId = req.params.postId;
+
+      // Retrieve ratings for the specified post
+      const ratings = await Rating.find({ post: postId });
+
+      res.status(200).json({ ratings });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  },
 };
 
 
+module.exports = ratingController;
 

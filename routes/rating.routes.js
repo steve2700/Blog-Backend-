@@ -1,3 +1,4 @@
+// rating.routes.js
 const express = require('express');
 const ratingController = require('../controllers/rating.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
