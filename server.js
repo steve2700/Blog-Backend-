@@ -35,6 +35,7 @@ const activityRoutes = require('./routes/activity.routes');
 // import rating
 const ratingRoutes = require('./routes/rating.routes');
 
+
 dotenv.config();
 
 const app = express();
