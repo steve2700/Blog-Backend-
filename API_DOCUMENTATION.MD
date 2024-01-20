@@ -456,7 +456,38 @@ Retrieve a list of all tags.
     }
     ```
   - **500 Internal Server Error**: An error occurred on the server.
+## Update Tag
 
+Update an existing tag.
+
+- **Endpoint**: `PUT /api/tags/:tagId`
+- **Authentication**: Required
+- **Request Parameters**:
+  - `tagId`: ID of the tag to be updated.
+- **Request Body**:
+
+```json
+{
+  "name": "Updated Tag Name"
+}
+```
+## Response 
+- **200 OK: Tag updated successfully.**
+`json
+{
+  "tag": {
+    "_id": "tagId",
+    "name": "Updated Tag Name"
+  }
+}
+```
+- **404 Not Found: Tag not found.
+```json
+{
+  "message": "Tag not found."
+}
+```
+-**500 Internal Server Error: An error occurred on the server.**
 
 
 
