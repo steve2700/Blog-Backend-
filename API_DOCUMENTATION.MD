@@ -61,7 +61,14 @@
    - [Request Parameters](#request-parameters-1)
    - [Responses](#responses-3)
 
-
+ [Activity Logging API Documentation](#activity-logging-api-documentation)
+  - [List User's Activity Logs](#list-users-activity-logs)
+    - [Endpoint](#endpoint)
+    - [Description](#description)
+    - [Request](#request)
+    - [Response](#response)
+  - [Authentication](#authentication)
+  - [Error Responses](#error-responses)
   
 ## User Endpoints
 
@@ -616,7 +623,7 @@ Retrieves activity logs for the authenticated user.
   }
 ```
 -**Status Code: 500 Internal Server Error**
-
+```
 
 
 
