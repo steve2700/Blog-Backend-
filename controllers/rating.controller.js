@@ -1,10 +1,9 @@
 const Rating = require('../models/rating.model');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const authMiddleware = require('../middlewares/authMiddleware');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 const ratingController = {
-  // Rate a Post
   ratePost: [authMiddleware, async (req, res) => {
     try {
       const userId = req.user._id;
@@ -41,28 +40,7 @@ const ratingController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }],
-
-  // List Ratings for a Post
-  listRatings: async (req, res) => {
-    try {
-      const { postId } = req.params;
-
-      // Check if the post exists
-      const post = await Post.findById(postId);
-      if (!post) {
-        return res.status(404).json({ message: 'Post not found.' });
-      }
-
-      // Get the ratings for the post
-      const ratings = await Rating.find({ post: postId }).populate('user');
-
-      res.status(200).json({ ratings });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  },
 };
 
-module.exports = ratingController;
+
 

@@ -51,6 +51,10 @@ const postSchema = new mongoose.Schema({
       message: 'Invalid image URL format',
     },
   },
+  averageRating: {
+    type: Number,
+    default: 0, 
+  },
 }, { timestamps: true });
 
 const Post = mongoose.model('Post', postSchema);

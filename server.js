@@ -6,14 +6,15 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 
 // Import User model
-const User = require('./models/user.model'); // Add this line
-const Post = require('./models/post.model'); // Add this line
+const User = require('./models/user.model'); 
+const Post = require('./models/post.model'); 
 const Category = require('./models/category');
 const Comment = require('./models/comment');
 const Like  = require('./models/like');
-const Bookmark = require('./models/bookmark.model')
-const Tag  = require('./models/tag.model')
-const Activity = require('./models/activity.model')
+const Bookmark = require('./models/bookmark.model');
+const Tag  = require('./models/tag.model');
+const Activity = require('./models/activity.model');
+const Rating = require('./models/rating.model');
 // import post route
 const postRoutes = require('./routes/postRoutes'); 
 // Import Category routes
@@ -31,6 +32,9 @@ const bookmarkRoutes = require('./routes/bookmark.routes');
 const tagRoutes = require('./routes/tag.routes'); 
 // import Activity
 const activityRoutes = require('./routes/activity.routes');
+// import rating
+const ratingRoutes = require('./routes/rating.routes');
+
 dotenv.config();
 
 const app = express();
@@ -108,7 +112,8 @@ app.use('/api', tagRoutes);
 
 // use the activity
 app.use('/api', activityRoutes); 
-
+// use the rating
+app.use('/api', ratingRoutes);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

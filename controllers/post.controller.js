@@ -3,7 +3,8 @@ const User = require('../models/user.model');
 const Comment = require('../models/comment');
 const Category = require('../models/category');
 const Like = require('../models/like');
-const Bookmark = require('../models/bookmark.model')
+const Bookmark = require('../models/bookmark.model');
+const Rating = require('../models/rating.model');
 const authMiddleware = require('../middlewares/auth.Middleware');
 
 const postController = {
