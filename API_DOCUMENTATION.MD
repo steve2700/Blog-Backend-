@@ -624,6 +624,55 @@ Retrieves activity logs for the authenticated user.
 ```
 -**Status Code: 500 Internal Server Error**
 ```
+# Rating API Documentation
+
+## Overview
+
+This API allows users to rate posts and retrieve ratings for specific posts.
+
+### Base URL
+
+`/api`
+
+## Endpoints
+
+### Rate a Post
+
+#### Endpoint
+
+`POST /ratePost`
+
+#### Description
+
+Allows users to rate a post.
+
+#### Request
+
+- **Headers:**
+  - Authorization: Bearer \<JWT_TOKEN\>
+
+- **Body:**
+  ```json
+  {
+    "postId": "string", // ID of the post to be rated
+    "value": "number"    // Rating value (e.g., 1 to 5)
+  }
+```
+## Response
+-**Status Code: 201 Created**
+```json
+{
+  "rating": {
+    // Details of the new rating
+    "post": "<POST_ID>",
+    "user": "<USER_ID>",
+    "value": "<RATING_VALUE>",
+    "_id": "<RATING_ID>",
+    "createdAt": "<TIMESTAMP>"
+  }
+}
+```
+-**Status code 500 internal server error
 
 
 
