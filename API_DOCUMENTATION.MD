@@ -488,6 +488,29 @@ Update an existing tag.
 }
 ```
 -**500 Internal Server Error: An error occurred on the server.**
+## Delete Tag
+
+Delete an existing tag.
+
+- **Endpoint**: `DELETE /api/tags/:tagId`
+- **Authentication**: Required
+- **Request Parameters**:
+  - `tagId`: ID of the tag to be deleted.
+- **Responses**:
+  - **200 OK**: Tag deleted successfully.
+    ```json
+    {
+      "message": "Tag deleted successfully."
+    }
+    ```
+  - **404 Not Found**: Tag not found.
+    ```json
+    {
+      "message": "Tag not found."
+    }
+    ```
+  - **500 Internal Server Error**: An error occurred on the server.
+
 
 
 
