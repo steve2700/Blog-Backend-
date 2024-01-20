@@ -433,6 +433,31 @@ Create a new tag.
 ```
 ## Response
 201 Created: Tag created successfully.
+## List Tags
+
+Retrieve a list of all tags.
+
+- **Endpoint**: `GET /api/tags`
+- **Responses**:
+  - **200 OK**: Successfully retrieved the list of tags.
+    ```json
+    {
+      "tags": [
+        {
+          "_id": "tagId1",
+          "name": "Tag 1"
+        },
+        {
+          "_id": "tagId2",
+          "name": "Tag 2"
+        },
+        // ... more tags
+      ]
+    }
+    ```
+  - **500 Internal Server Error**: An error occurred on the server.
+
+
 
 
 
