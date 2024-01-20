@@ -417,6 +417,23 @@ curl http://your-api-url/posts/123/likes
 ```json
 GET http://localhost:3001/api/bookmarks/bookmarks
 ```
+## Tag API
+### Create Tag
+
+Create a new tag.
+
+- **Endpoint**: `POST /api/tags`
+- **Authentication**: Required
+- **Request Body**:
+
+```json
+{
+  "name": "Tag Name"
+}
+```
+## Response
+201 Created: Tag created successfully.
+
 
 
 
