@@ -534,6 +534,88 @@ Delete an existing tag.
     }
     ```
   - **500 Internal Server Error**: An error occurred on the server.
+# Activity Logging API Documentation
+
+## Overview
+
+This API allows users to log their activities and retrieve their activity logs.
+
+### Base URL
+
+`
+
+## Endpoints
+
+### Log Activity
+
+#### Endpoint
+
+`POST /activity/log`
+
+#### Description
+
+Logs a user's activity.
+
+#### Request
+
+- **Headers:**
+  - Authorization: Bearer \<JWT_TOKEN\>
+
+- **Body:**
+  ```json
+  {
+    "action": "string", // The action performed by the user
+    "details": "string" // Additional details or description of the activity
+  }
+## Response
+-**Status Code: 201 Created**
+```json
+{
+  "activityLog": {
+    "user": "<USER_ID>",
+    "action": "<ACTION>",
+    "details": "<DETAILS>",
+    "_id": "<LOG_ID>",
+    "createdAt": "<TIMESTAMP>"
+  }
+}
+```
+# Activity Logging API Documentation
+
+## List User's Activity Logs
+
+### Endpoint
+
+`GET /activity/logs`
+
+### Description
+
+Retrieves activity logs for the authenticated user.
+
+### Request
+
+- **Headers:**
+  - Authorization: Bearer \<JWT_TOKEN\>
+
+### Response
+
+- **Status Code:** 200 OK
+- **Body:**
+  ```json
+  {
+    "activityLogs": [
+      {
+        "user": "<USER_ID>",
+        "action": "<ACTION>",
+        "details": "<DETAILS>",
+        "_id": "<LOG_ID>",
+        "createdAt": "<TIMESTAMP>"
+      },
+      // Additional activity log entries...
+    ]
+  }
+```
+-**Status Code: 500 Internal Server Error**
 
 
 
