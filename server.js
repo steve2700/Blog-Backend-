@@ -34,6 +34,8 @@ const tagRoutes = require('./routes/tag.routes');
 const activityRoutes = require('./routes/activity.routes');
 // import rating
 const ratingRoutes = require('./routes/rating.routes');
+// import the search func
+const searchRoutes = require('./routes/search.routes');
 
 
 dotenv.config();
@@ -115,6 +117,10 @@ app.use('/api', tagRoutes);
 app.use('/api', activityRoutes); 
 // use the rating
 app.use('/api', ratingRoutes);
+// Use the search route
+app.use('/api', searchRoutes);
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
