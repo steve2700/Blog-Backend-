@@ -1,6 +1,5 @@
 // search.controller.js
-// users can now search freely
-
+// include autocomplete, pagination and filtering
 const Post = require('../models/post.model');
 
 const searchController = {
@@ -28,8 +27,24 @@ const searchController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-};
 
+  autocompleteSuggestions: async (req, res) => {
+    try {
+      const { query } = req.params;
+
+      // Use regex to match suggestions starting with the provided query
+      const suggestions = await Post.find({ $text: { $search: query } }, { score: { $meta: 'textScore' } })
+        .sort({ score: { $meta: 'textScore' } })
+        .limit(5)
+        .select('title'); 
+
+      res.status(200).json({ suggestions });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  },
+};
 
 module.exports = searchController;
 
