@@ -687,6 +687,110 @@ Allows users to rate a post.
 
 
 
+## Search API
+
+### Search Posts
+
+#### Endpoint
+
+`GET /search/posts`
+
+#### Description
+
+Search for posts based on various criteria such as text query, author, category, and tag.
+
+#### Parameters
+
+- `query` (string, required): The search query.
+- `author` (string, optional): Filter by author.
+- `category` (string, optional): Filter by category.
+- `tag` (string, optional): Filter by tag.
+- `sortBy` (string, optional): Sort the results by a specific field.
+- `sortOrder` (string, optional): Sort order, either "asc" (ascending) or "desc" (descending).
+
+#### Headers
+
+- `Authorization` (string, required): Token for user authentication.
+
+#### Example
+
+```http
+GET /search/posts?query=programming&author=john_doe&sortBy=date&sortOrder=desc
+Authorization: Bearer YOUR_ACCESS_TOKEN```
+```json
+{
+  "results": [
+    {
+      // Post details
+    },
+    // more info like additional posts
+  ]
+}```
+## Error Responses
+- 500 Internal Server Error
+```json
+{
+  "message": "Internal Server Error"
+}```
+### Autocomplete Suggestions
+
+#### Endpoint
+
+`GET /search/autocomplete/:query`
+
+#### Description
+
+Get autocomplete suggestions for a given query.
+
+#### Parameters
+
+- `query` (string, required): The autocomplete query.
+
+#### Headers
+
+- `Authorization` (string, required): Token for user authentication.
+
+#### Example
+
+```http
+GET /search/autocomplete/progra
+Authorization: Bearer YOUR_ACCESS_TOKEN```
+## Response
+```json
+{
+  "suggestions": [
+    {
+      "title": "Programming Basics"
+    },
+    // Additional suggestions
+  ]
+}```
+- Error Responses
+- `500 Internal Server Error`
+`400 Bad Request
+`{
+  "message": "Invalid request. Please check your parameters."
+}`
+`401 Unauthorized`
+`json
+{
+  "message": "Unauthorized. Please provide a valid access token."
+}`
+`404 Not Found
+```json
+{
+"message": "Post /resources not found".
+}```
+
+
+
+
+
+
+
+
+
+
 
 
 
