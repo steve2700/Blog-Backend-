@@ -771,20 +771,24 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 - Error Responses
 - `500 Internal Server Error`
-`400 Bad Request
-`{
+`400 Bad Request`
+```json
+{
   "message": "Invalid request. Please check your parameters."
-}`
+}
+```
 `401 Unauthorized`
-`json
+```json
 {
   "message": "Unauthorized. Please provide a valid access token."
-}`
-`404 Not Found
+}
+```
+`404 Not Found`
 ```json
 {
 "message": "Post /resources not found".
-}```
+}
+```
 
 
 
