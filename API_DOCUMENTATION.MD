@@ -80,7 +80,29 @@
       - [Response](#response)
   - [Authentication](#authentication)
   - [Error Responses](#error-responses)
-  
+
+1. [Search API](#search-api)
+    1.1 [Search Posts](#search-posts)
+        1.1.1 [Endpoint](#endpoint)
+        1.1.2 [Description](#description)
+        1.1.3 [Parameters](#parameters)
+        1.1.4 [Headers](#headers)
+        1.1.5 [Example](#example)
+        1.1.6 [Response](#response)
+        1.1.7 [Error Responses](#error-responses)
+    1.2 [Autocomplete Suggestions](#autocomplete-suggestions)
+        1.2.1 [Endpoint](#endpoint-1)
+        1.2.2 [Description](#description-1)
+        1.2.3 [Parameters](#parameters-1)
+        1.2.4 [Headers](#headers-1)
+        1.2.5 [Example](#example-1)
+        1.2.6 [Response](#response-1)
+        1.2.7 [Error Responses](#error-responses-1)
+2. [Error Handling](#error-handling)
+    2.1 [400 Bad Request](#400-bad-request)
+    2.2 [401 Unauthorized](#401-unauthorized)
+    2.3 [404 Not Found](#404-not-found)
+
 ## User Endpoints
 
 ### signup User
