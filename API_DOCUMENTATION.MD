@@ -714,9 +714,9 @@ Search for posts based on various criteria such as text query, author, category,
 
 #### Example
 
-```http
-GET /search/posts?query=programming&author=john_doe&sortBy=date&sortOrder=desc
-Authorization: Bearer YOUR_ACCESS_TOKEN```
+```GET /search/posts?query=programming&author=john_doe&sortBy=date&sortOrder=desc
+Authorization: Bearer YOUR_ACCESS_TOKEN
+```
 ```json
 {
   "results": [
@@ -725,13 +725,15 @@ Authorization: Bearer YOUR_ACCESS_TOKEN```
     },
     // more info like additional posts
   ]
-}```
+}
+```
 ## Error Responses
 - 500 Internal Server Error
 ```json
 {
   "message": "Internal Server Error"
-}```
+}
+```
 ### Autocomplete Suggestions
 
 #### Endpoint
@@ -754,7 +756,8 @@ Get autocomplete suggestions for a given query.
 
 ```http
 GET /search/autocomplete/progra
-Authorization: Bearer YOUR_ACCESS_TOKEN```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+```
 ## Response
 ```json
 {
@@ -764,7 +767,8 @@ Authorization: Bearer YOUR_ACCESS_TOKEN```
     },
     // Additional suggestions
   ]
-}```
+}
+```
 - Error Responses
 - `500 Internal Server Error`
 `400 Bad Request
