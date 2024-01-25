@@ -263,39 +263,36 @@ const userController = {
     }
   },
   uploadProfileImage: async function (req, res) {
-    try {
-      const userId = req.user._id;
-      const file = req.file;
+  try {
+    const userId = req.user._id;
+    const file = req.file;
 
-      if (!file) {
-        return res.status(400).json({ message: 'No file uploaded.' });
-      }
-      const userId = req.user._id;
-      const destination = `profile-images/${userId}/${file.originalname}`;
-      const uploadOptions = {
-        destination,
-        resumable: false,
-        metadata: {
-          contentType: file.mimetype,
-        },
-      };
-      await bucket.upload(Buffer.from(file.buffer), uploadOptions);
-      // Get the uploaded file URL
-      const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
-
-      // Update the user's profileImageUrl in the database
-      await User.findByIdAndUpdate(userId, { profileImageUrl: url });
-
-      // Delete the temporary file
-      // fs.unlinkSync(file.path);
-
-      res.status(200).json({ message: 'Profile image uploaded successfully.', imageUrl: url });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    if (!file) {
+      return res.status(400).json({ message: 'No file uploaded.' });
     }
-  },
-  
+
+    const destination = `profile-images/${userId}/${file.originalname}`;
+    const uploadOptions = {
+      destination,
+      resumable: false,
+      metadata: {
+        contentType: file.mimetype,
+      },
+    };
+
+    await bucket.upload(Buffer.from(file.buffer), uploadOptions);
+
+    const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
+
+    await User.findByIdAndUpdate(userId, { profileImageUrl: url });
+
+    res.status(200).json({ message: 'Profile image uploaded successfully.', imageUrl: url });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+},
+
   // Google Signup
   googleSignup: passport.authenticate('google', { scope: ['profile', 'email'] }),
 
