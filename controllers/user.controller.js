@@ -284,7 +284,7 @@ const userController = {
     };
 
     // Create a writable stream
-    const fileStream = storage.bucket('gs://profile-image-url.appspot.com').file(destination).createWriteStream({
+    const fileStream = bucket.file(destination).createWriteStream({
       metadata: {
         contentType: file.mimetype,
       },
@@ -300,7 +300,7 @@ const userController = {
     });
 
     // Get the signed URL
-    const [url] = await storage.bucket('gs://profile-image-url.appspot.com').file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
+    const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
 
     await User.findByIdAndUpdate(userId, { profileImageUrl: url });
 
