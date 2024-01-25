@@ -1,6 +1,8 @@
 # Table of Contents
 
 - [Blog Application](#blog-application)
+- [Tech Stack](#tech-stack)
+- [Third Party Api](#third-party-api)
 - [Getting Started](#getting-started)
   - [Clone the Repository](#1-clone-the-repository)
   - [Install Dependencies](#2-install-dependencies)
@@ -13,6 +15,28 @@
 # Blog Application
 
 Welcome to the Blog Application! This application allows users to create, manage, and share blog posts.
+
+## Tech Stack
+
+The backend of this application is built using the following technologies:
+
+- Node.js: JavaScript runtime for server-side development.
+- Express: Fast, unopinionated, minimalist web framework for Node.js.
+- MongoDB: NoSQL database for storing blog posts, users, and related data.
+- Mongoose: MongoDB object modeling for Node.js.
+- Multer: Middleware for handling file uploads.
+- Sharp: High-performance image resizing library.
+- JSON Web Tokens (JWT): Authentication and authorization mechanism.
+- Nodemailer: Module for sending emails (used for user registration, etc.).
+
+## Third-Party APIs
+
+The Blog Application integrates with the following third-party APIs:
+
+- Google OAuth: Used for user authentication.
+- Firebase Storage: Cloud storage service for storing profile images.
+- (Any other third-party APIs you are using)
+
 
 ## Getting Started
 
