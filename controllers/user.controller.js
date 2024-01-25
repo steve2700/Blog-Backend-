@@ -10,7 +10,7 @@ const admin = require('firebase-admin');
 const serviceAccount = require('../service-account.json') //updated with the correct path
 const upload = require('../middlewares/upload');
 const stream = require('stream');
-
+const upload = require('../middlewares/upload');
 
 
 admin.initializeApp({
@@ -248,7 +248,40 @@ const userController = {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  },       
+  },
+  uploadProfileImage: async function (req, res) {
+  try {
+    const userId = req.user._id;
+    const file = req.file;
+
+    if (!file) {
+      return res.status(400).json({ message: 'No file uploaded.' });
+    }
+
+    const destination = `profile-images/${userId}/${file.originalname}`;
+    const uploadOptions = {
+      destination,
+      resumable: false,
+      metadata: {
+        contentType: file.mimetype,
+      },
+    };
+
+    // Convert the buffer to a Uint8Array before uploading
+    const bufferArray = Uint8Array.from(file.buffer);
+    await bucket.upload(bufferArray, uploadOptions);
+
+    const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
+
+    await User.findByIdAndUpdate(userId, { profileImageUrl: url });
+
+    res.status(200).json({ message: 'Profile image uploaded successfully.', imageUrl: url });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+},
+
   // Delete Account
   deleteAccount: async function (req, res) {
     try {
