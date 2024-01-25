@@ -59,7 +59,7 @@ The server will run on port 3001.
 
 ## API Documentation
 
-Explore the API endpoints and learn how to integrate with the Blog Application by referring to our [API Documentation](<link_to_api_documentation>).
+Explore the API endpoints and learn how to integrate with the Blog Application by referring to our [API Documentation](https://github.com/steve2700/Blog-Backend-/blob/main/API_DOCUMENTATION.MD).
 
 ## Contributing
 
