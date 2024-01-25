@@ -35,7 +35,7 @@ The Blog Application integrates with the following third-party APIs:
 
 - Google OAuth: Used for user authentication.
 - Firebase Storage: Cloud storage service for storing profile images.
-- (Any other third-party APIs you are using)
+  
 
 
 ## Getting Started
