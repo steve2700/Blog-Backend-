@@ -262,7 +262,7 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-  uploadProfileImage: async function (req, res) {
+  uploadProfileImage = async function (req, res) {
   try {
     const userId = req.user._id;
     const file = req.file;
@@ -280,9 +280,11 @@ const userController = {
       },
     };
 
-    
-    const bufferArray = file.buffer;
-    await bucket.upload(bufferArray, uploadOptions);
+    // Create a readable stream from the buffer
+    const bufferStream = new stream.PassThrough();
+    bufferStream.end(file.buffer);
+
+    await bucket.upload(bufferStream, uploadOptions);
 
     const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
 
