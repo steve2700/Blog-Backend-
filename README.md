@@ -1,3 +1,15 @@
+# Table of Contents
+
+- [Blog Application](#blog-application)
+- [Getting Started](#getting-started)
+  - [Clone the Repository](#1-clone-the-repository)
+  - [Install Dependencies](#2-install-dependencies)
+  - [Set up Environment Variables](#3-set-up-environment-variables)
+  - [Start the Server](#4-start-the-server)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
+
 # Blog Application
 
 Welcome to the Blog Application! This application allows users to create, manage, and share blog posts.
