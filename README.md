@@ -67,5 +67,5 @@ If you would like to contribute to the development of this application, please f
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [MIT LICENSE](https://github.com/steve2700/Blog-Backend-/blob/main/LICENSE) file for details.
 
