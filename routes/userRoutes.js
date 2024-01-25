@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const passwordValidator = require('password-validator');
 const { userController, forgotPassword, verifyEmail} = require('../controllers/user.controller');
-const authMiddleware = require('../middlewares/auth.middleware'); // Make sure the path is correct
+const authMiddleware = require('../middlewares/auth.middleware');
+const upload = require('../middlewares/upload'); // Replace with the correct path to your upload middleware
+
 
 
 // Create a password schema
@@ -41,6 +44,9 @@ router.put('/update-profile', authMiddleware, userController.updateProfile);
 
 // Delete Account route
 router.delete('/delete-account', authMiddleware, userController.deleteAccount);
+// Upload profile image route
+router.post('/upload-profile-image', authMiddleware, upload.single('profileImage'), userController.uploadProfileImage);
+
 
 // Forgot Password route
 router.post('/forgot-password', forgotPassword);

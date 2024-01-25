@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'No profile information available.',
   },
+  profileImageUrl: {
+    type: String,
+    default: 'default-profile-image-url.jpg',
+  },
   role: {
     type: String,
     enum: ['user', 'admin'],
