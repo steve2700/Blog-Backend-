@@ -11,6 +11,13 @@
   - [Google Signup](#google-signup)
   - [Google Callback](#google-callback)
   - [Error Handling](#error-handling)
+  - [Upload Profile Image](#upload-profile-image)
+  - [Endpoint](#endpoint)
+  - [Request](#request)
+    - [Headers](#headers)
+    - [Body](#body)
+  - [Response](#response)
+    - [Success Response](#success-response)
 
 - [Category Endpoints](#category-endpoints)
   - [Create Category](#create-category)
@@ -171,12 +178,40 @@
 - **URL:** `/api/users/delete-account`
 - **Method:** `DELETE`
 - **Authorization:** Bearer Token (Include the user's JWT token in the Authorization header)
-
 - **Response:**
   - Status Code: `200 OK`
   - Body: `{ message: "Account deleted successfully." }`
   - Status Code: `500 Internal Server Error`
   - Body: `{ message: "Internal Server Error" }`
+# Profile Picture Upload
+Upload a profile picture for a user.
+## Endpoint
+
+```plaintext
+POST /api/users/upload-profile-image
+```
+## Request
+
+- **Headers**
+  - Content-Type: `multipart/form-data`
+  - Authorization: Bearer `<access_token>`
+
+- **Body**
+  - **form-data**
+    - key: `image`, type: File
+      - Choose the profile image file to upload.
+
+## Response
+
+- **Success Response: 200 OK**
+
+  ```json
+  {
+    "message": "Profile image uploaded successfully.",
+    "imageUrl": "https://storage.googleapis.com/profile-image-url.appspot.com/profile-images/{userId}/{filename}?GoogleAccessId={GoogleAccessId}&Expires={Expires}&Signature={Signature}"
+  }
+```
+
 
 ## Google Signup
 
