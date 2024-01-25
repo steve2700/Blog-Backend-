@@ -280,7 +280,9 @@ const userController = {
       },
     };
 
-    await bucket.upload(Buffer.from(file.buffer), uploadOptions);
+    // Convert the buffer to a Uint8Array before uploading
+    const bufferArray = Uint8Array.from(file.buffer);
+    await bucket.upload(bufferArray, uploadOptions);
 
     const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
 
@@ -292,6 +294,7 @@ const userController = {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 },
+
 
   // Google Signup
   googleSignup: passport.authenticate('google', { scope: ['profile', 'email'] }),
