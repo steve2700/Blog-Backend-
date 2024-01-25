@@ -6,6 +6,8 @@ const authMiddleware = require('../middlewares/auth.Middleware');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const nodemailer = require('nodemailer');
+const upload = require('../middlewares/upload');
+
 
 
 dotenv.config();
