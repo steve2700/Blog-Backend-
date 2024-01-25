@@ -8,6 +8,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const nodemailer = require('nodemailer');
 const admin = require('firebase-admin');
 const serviceAccount = require('../service-account.json') //updated with the correct path
+const upload = require('../middlewares/upload');
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
