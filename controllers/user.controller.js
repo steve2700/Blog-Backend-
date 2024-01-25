@@ -268,10 +268,16 @@ const userController = {
       if (!file) {
         return res.status(400).json({ message: 'No file uploaded.' });
       }
-
-
-     
-
+      const userId = req.user._id;
+      const destination = `profile-images/${userId}/${file.originalname}`;
+      const uploadOptions = {
+        destination,
+        resumable: false,
+        metadata: {
+          contentType: file.mimetype,
+        },
+      };
+      await bucket.upload(Buffer.from(file.buffer), uploadOptions);
       // Get the uploaded file URL
       const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
 
@@ -288,7 +294,6 @@ const userController = {
     }
   },
   
-   
   // Google Signup
   googleSignup: passport.authenticate('google', { scope: ['profile', 'email'] }),
 
