@@ -269,16 +269,8 @@ const userController = {
         return res.status(400).json({ message: 'No file uploaded.' });
       }
 
-      const destination = `profile-images/${userId}/${file.originalname}`;
-      const uploadOptions = {
-        destination,
-        resumable: false,
-        metadata: {
-          contentType: file.mimetype,
-        },
-      };
 
-      await bucket.upload(file.path, uploadOptions);
+     
 
       // Get the uploaded file URL
       const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });

@@ -24,11 +24,11 @@ const userSchema = new mongoose.Schema({
   },
   profile: {
     type: String,
-    default: 'No profile information available.',
+    default: 'No profile information available',
   },
   profileImageUrl: {
     type: String,
-    default: 'default-profile-image-url.jpg',
+    default: 'null',
   },
   role: {
     type: String,
