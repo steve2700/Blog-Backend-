@@ -9,6 +9,8 @@ const nodemailer = require('nodemailer');
 const admin = require('firebase-admin');
 const serviceAccount = require('../service-account.json') //updated with the correct path
 const upload = require('../middlewares/upload');
+const stream = require('stream');
+
 
 
 admin.initializeApp({
@@ -262,7 +264,8 @@ const userController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-  uploadProfileImage = async function (req, res) {
+    //uploadprofileimage
+  uploadProfileImage: async function (req, res) {
   try {
     const userId = req.user._id;
     const file = req.file;
@@ -280,13 +283,24 @@ const userController = {
       },
     };
 
-    // Create a readable stream from the buffer
-    const bufferStream = new stream.PassThrough();
-    bufferStream.end(file.buffer);
+    // Create a writable stream
+    const fileStream = storage.bucket('gs://profile-image-url.appspot.com').file(destination).createWriteStream({
+      metadata: {
+        contentType: file.mimetype,
+      },
+    });
 
-    await bucket.upload(bufferStream, uploadOptions);
+    // Pipe the buffer into the writable stream
+    fileStream.end(file.buffer);
 
-    const [url] = await bucket.file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
+    // Wait for the upload to finish
+    await new Promise((resolve, reject) => {
+      fileStream.on('error', reject);
+      fileStream.on('finish', resolve);
+    });
+
+    // Get the signed URL
+    const [url] = await storage.bucket('gs://profile-image-url.appspot.com').file(destination).getSignedUrl({ action: 'read', expires: '01-01-2500' });
 
     await User.findByIdAndUpdate(userId, { profileImageUrl: url });
 
@@ -295,10 +309,9 @@ const userController = {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
-},
-
-
-  // Google Signup
+}, 
+  
+   // Google Signup
   googleSignup: passport.authenticate('google', { scope: ['profile', 'email'] }),
 
   // Google Callback
