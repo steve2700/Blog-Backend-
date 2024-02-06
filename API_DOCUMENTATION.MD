@@ -846,6 +846,48 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 "message": "Post /resources not found".
 }
 ```
+# Post
+
+## Create Post
+
+### `POST /api/posts/`
+
+Create a new post.
+
+#### Request
+
+- **Body Parameters:**
+  - `title` (string): Title of the post.
+  - `content` (string): Content of the post.
+  - `categories` (array of ObjectId): Categories associated with the post.
+  - `imageUrl` (string): URL of the image attached to the post.
+
+#### Response
+
+- **Status: 201 Created**
+  - Returns the created post object.
+
+- **Status: 400 Bad Request**
+  - One or more categories do not exist.
+
+- **Status: 500 Internal Server Error**
+  - Server encountered an error.
+
+## Get Single Post
+
+### `GET /api/posts/:postId`
+
+Retrieve a single post by ID.
+
+#### Request
+
+- **Path Parameters:**
+  - `postId` (string): ID of the post.
+
+#### Response
+
+- **Status
+
 
 
 
