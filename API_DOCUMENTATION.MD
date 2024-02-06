@@ -971,8 +971,6 @@ Delete an existing post.
 
 ---
 
-**Note:** Replace `/api/` with your actual API base path.
-
 
 
 
