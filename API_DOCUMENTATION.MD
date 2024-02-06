@@ -887,6 +887,92 @@ Retrieve a single post by ID.
 #### Response
 
 - **Status
+: 200 OK
+  - Returns the post object with author, categories, and comments populated.
+
+- **Status: 404 Not Found**
+  - Post not found.
+
+- **Status: 500 Internal Server Error**
+  - Server encountered an error.
+
+## List Posts
+
+### `GET /api/posts/`
+
+Retrieve a list of all posts.
+
+#### Response
+
+- **Status: 200 OK**
+  - Returns an array of post objects with author and categories populated.
+
+- **Status: 500 Internal Server Error**
+  - Server encountered an error.
+
+## Update Post
+
+### `PUT /api/posts/:postId`
+
+Update an existing post.
+
+#### Request
+
+- **Path Parameters:**
+  - `postId` (string): ID of the post.
+
+- **Body Parameters:**
+  - `title` (string): New title of the post.
+  - `content` (string): New content of the post.
+  - `categories` (array of ObjectId): New categories associated with the post.
+  - `imageUrl` (string): New URL of the image attached to the post.
+
+#### Response
+
+- **Status: 200 OK**
+  - Returns the updated post object with author, categories, and comments populated.
+
+- **Status: 400 Bad Request**
+  - One or more categories do not exist.
+
+- **Status: 403 Forbidden**
+  - User does not have permission to update this post.
+
+- **Status: 404 Not Found**
+  - Post not found.
+
+- **Status: 500 Internal Server Error**
+  - Server encountered an error.
+
+## Delete Post
+
+### `DELETE /api/posts/:postId`
+
+Delete an existing post.
+
+#### Request
+
+- **Path Parameters:**
+  - `postId` (string): ID of the post.
+
+#### Response
+
+- **Status: 200 OK**
+  - Post deleted successfully.
+
+- **Status: 403 Forbidden**
+  - User does not have permission to delete this post.
+
+- **Status: 404 Not Found**
+  - Post not found.
+
+- **Status: 500 Internal Server Error**
+  - Server encountered an error.
+
+---
+
+**Note:** Replace `/api/` with your actual API base path.
+
 
 
 
