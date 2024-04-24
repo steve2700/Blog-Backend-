@@ -216,7 +216,7 @@ POST /api/users/upload-profile-image
 ## Google Signup
 
 - **Endpoint:** `/api/users/google/signup`
-- **Method:** `GET`
+- **Method:** GET
 
 Initiates the Google Sign Up process.
 
@@ -224,8 +224,8 @@ Redirect to Google's authentication page.
 
 ## Google Callback
 
-- **Endpoint:** `/api/users/google/callback`
-- **Method:** `GET`
+- **Endpoint:** /api/users/google/callback
+- **Method:** GET
 
 Handles the callback after a successful Google authentication.
 
