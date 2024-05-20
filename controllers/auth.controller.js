@@ -109,14 +109,20 @@ exports.verifyEmail = async (req, res) => {
 
 // Login
 exports.login = async (req, res, next) => {
-  const { username, password } = req.body;
+  const { identifier, password } = req.body; // Changed from `username` to `identifier`
 
-  if (!username || !password) {
-    return res.status(422).json({ error: 'Username and password are required.' });
+  if (!identifier || !password) {
+    return res.status(422).json({ error: 'Username/email and password are required.' });
   }
 
   try {
-    const user = await User.findOne({ username });
+    // Find user by username or email
+    const user = await User.findOne({
+      $or: [
+        { username: identifier },
+        { email: identifier }
+      ]
+    });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found.' });
@@ -132,7 +138,8 @@ exports.login = async (req, res, next) => {
       return res.status(401).json({ error: 'Invalid password.' });
     }
 
-    // If username and password are correct, generate a JWT token
+    // If username/email and password are correct, generate a JWT token
+    const jwtSecret = process.env.jwtSecret;
     const token = jwt.sign({ id: user._id, username: user.username, role: user.role }, jwtSecret, { expiresIn: '1h' });
 
     res.json({ token });
@@ -140,6 +147,7 @@ exports.login = async (req, res, next) => {
     next(error);
   }
 };
+
 
 
 // forgot Password
@@ -269,5 +277,24 @@ exports.deleteAccount = async function (req, res)  {
     }
 };
 
+// Get current user info
+exports.getMe = async (req, res, next) => {
+  try {
+    // Retrieve the user ID from the request object set by auth middleware
+    const userId = req.user._id;
+
+    // Find the user by ID
+    const user = await User.findById(userId).select('-password'); // Exclude the password field
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Return the user data
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+};
 
 

@@ -7,8 +7,8 @@ const bookmarkController = {
   // Bookmark a Post
   bookmarkPost: [authMiddleware, async (req, res) => {
     try {
-      const { postId } = req.params;
-      const userId = req.user._id;
+      const { postId } = req.params;  // Extract postId from URL params
+      const userId = req.user._id;    // Extract userId from authenticated user
 
       // Check if the post exists
       const post = await Post.findById(postId);
@@ -18,7 +18,6 @@ const bookmarkController = {
 
       // Check if the user has already bookmarked the post
       const existingBookmark = await Bookmark.findOne({ post: postId, user: userId });
-
       if (existingBookmark) {
         return res.status(400).json({ message: 'You have already bookmarked this post.' });
       }
@@ -37,8 +36,8 @@ const bookmarkController = {
   // Unbookmark a Post
   unbookmarkPost: [authMiddleware, async (req, res) => {
     try {
-      const { postId } = req.params;
-      const userId = req.user._id;
+      const { postId } = req.params;  // Extract postId from URL params
+      const userId = req.user._id;    // Extract userId from authenticated user
 
       // Check if the post exists
       const post = await Post.findById(postId);
@@ -48,7 +47,6 @@ const bookmarkController = {
 
       // Check if the bookmark exists
       const existingBookmark = await Bookmark.findOneAndDelete({ post: postId, user: userId });
-
       if (!existingBookmark) {
         return res.status(400).json({ message: 'You have not bookmarked this post.' });
       }
@@ -61,21 +59,19 @@ const bookmarkController = {
   }],
 
   // List Bookmarks for a User
-  listBookmarks: function(req, res) {
-    authMiddleware(req, res, async () => {
-      try {
-        const userId = req.user._id;
+  listBookmarks: [authMiddleware, async (req, res) => {
+    try {
+      const userId = req.user._id;  // Extract userId from authenticated user
 
-        // Get the bookmarks for the user
-        const bookmarks = await Bookmark.find({ user: userId }).populate('post');
+      // Get the bookmarks for the user
+      const bookmarks = await Bookmark.find({ user: userId }).populate('post');
 
-        res.status(200).json({ bookmarks });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      }
-    });
-  }
+      res.status(200).json({ bookmarks });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }]
 };
 
 module.exports = bookmarkController;

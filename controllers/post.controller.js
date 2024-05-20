@@ -6,13 +6,15 @@ const Like = require('../models/like');
 const Bookmark = require('../models/bookmark.model');
 const Rating = require('../models/rating.model');
 const authMiddleware = require('../middlewares/auth.Middleware');
+const path = require('path');
 
 const postController = {
   // Create Post
-  createPost: [authMiddleware, async (req, res) => {
+  createPost: async (req, res) => {
     try {
-      const { title, content, categories, imageUrl } = req.body;
+      const { title, content, categories } = req.body;
       const authorId = req.user._id;
+      const imageUrl = req.file ? path.join('/uploads', req.file.filename) : '';
 
       // Check if categories exist
       const existingCategories = await Category.find({ _id: { $in: categories } });
@@ -35,7 +37,7 @@ const postController = {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }],
+  },
 
   // Get Single Post
   getPost: async (req, res) => {
@@ -68,11 +70,12 @@ const postController = {
   },
 
   // Update Post
-  updatePost: [authMiddleware, async (req, res) => {
+  updatePost: async (req, res) => {
     try {
       const postId = req.params.postId;
-      const { title, content, categories, imageUrl } = req.body;
+      const { title, content, categories } = req.body;
       const authorId = req.user._id;
+      const imageUrl = req.file ? path.join('/uploads', req.file.filename) : undefined;
 
       // Check if the user is the author of the post
       const post = await Post.findById(postId);
@@ -89,7 +92,7 @@ const postController = {
       // Update the post
       const updatedPost = await Post.findByIdAndUpdate(
         postId,
-        { title, content, categories, imageUrl },
+        { title, content, categories, ...(imageUrl && { imageUrl }) },
         { new: true }
       ).populate('author categories comments');
 
@@ -98,10 +101,10 @@ const postController = {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }],
+  },
 
   // Delete Post
-  deletePost: [authMiddleware, async (req, res) => {
+  deletePost: async (req, res) => {
     try {
       const postId = req.params.postId;
       const authorId = req.user._id;
@@ -115,13 +118,12 @@ const postController = {
       // Delete the post
       await Post.deleteOne({ _id: postId });
 
-
       res.status(200).json({ message: 'Post deleted successfully.' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }],
+  },
 };
 
 module.exports = postController;

@@ -37,7 +37,7 @@ const activityRoutes = require('./routes/activity.routes');
 const ratingRoutes = require('./routes/rating.routes');
 // import the search func
 const searchRoutes = require('./routes/search.routes');
-
+const  drafts = require('./routes/drafts');
 
 dotenv.config();
 
@@ -85,11 +85,11 @@ passport.deserializeUser((obj, done) => done(null, obj));
 //}));
 
 // Connect to MongoDB
-//mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
   //useNewUrlParser: true,
   //useUnifiedTopology: true,
   //useCreateIndex: true,
-//});
+});
 
 const db = mongoose.connection;
 

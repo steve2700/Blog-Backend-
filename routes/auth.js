@@ -1,4 +1,3 @@
-// routes/auth.js
 const express = require('express');
 const authController = require('../controllers/auth.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
@@ -14,7 +13,7 @@ router.post('/forgot-password', authController.forgotPassword);
 router.post('/reset-password/:token', authController.resetPassword);
 router.post('/upload-profile-image', authMiddleware, upload.single('profileImage'), authController.uploadProfileImage);
 router.delete('/delete-account', authMiddleware, authController.deleteAccount);
-
+router.get('/me', authMiddleware, authController.getMe);
 
 module.exports = router;
 
