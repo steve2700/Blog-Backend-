@@ -125,6 +125,10 @@ app.use('/api', ratingRoutes);
 // Use the search route
 app.use('/api', searchRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the API!');
+});
+
 
 // Start the server
 app.listen(PORT, () => {
