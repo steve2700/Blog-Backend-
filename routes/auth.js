@@ -1,7 +1,7 @@
 // routes/auth.js
 const express = require('express');
 const authController = require('../controllers/auth.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.Middleware');
 const upload = require('../middlewares/upload');
 const multer = require('multer');
 
@@ -17,4 +17,5 @@ router.delete('/delete-account', authMiddleware, authController.deleteAccount);
 
 
 module.exports = router;
+
 
