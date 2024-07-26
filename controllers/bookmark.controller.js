@@ -1,7 +1,7 @@
 const Bookmark = require('../models/bookmark.model');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const authMiddleware = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.Middleware');
 
 const bookmarkController = {
   // Bookmark a Post
