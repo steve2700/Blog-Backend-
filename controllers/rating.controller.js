@@ -1,7 +1,7 @@
 const Rating = require('../models/rating.model');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const authMiddleware = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.Middleware');
 
 const ratingController = {
   ratePost: [authMiddleware, async (req, res) => {

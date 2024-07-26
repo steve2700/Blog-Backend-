@@ -1,7 +1,7 @@
 // search.routes.js
 const express = require('express');
 const searchController = require('../controllers/search.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.Middleware');
 
 const router = express.Router();
 
