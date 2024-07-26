@@ -1,5 +1,5 @@
 const ActivityLog = require('../models/activity.model');
-const authMiddleware = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.Middleware');
 
 const activityController = {
   // Log Activity

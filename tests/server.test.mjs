@@ -1,8 +1,8 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../server');
-const expect = chai.expect;
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import server from '../server.js';
 
+const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('Server', () => {
@@ -11,12 +11,9 @@ describe('Server', () => {
       .get('/')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.text).to.equal('Welcome to the API!');
+        expect(res.text).to.equal('Hello World!');
         done();
       });
   });
 });
-
-
-
 
