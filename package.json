@@ -5,14 +5,13 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
-  "start": "node server.js",
-  "build": "npm run build",
-  "dev": "nodemon server.js",
-  "test": "mocha --exit",
-  "lint": "eslint . --ext js --report-unused-disable-directives --max-warnings 0",
-  "lint-fix": "eslint . --ext js --report-unused-disable-directives --max-warnings 0 --fix"
-},
-
+    "start": "node server.js",
+    "build": "npm run build",
+    "dev": "nodemon server.js",
+    "test": "mocha tests --exit",
+    "lint": "eslint . --ext js --report-unused-disable-directives --max-warnings 0",
+    "lint-fix": "eslint . --ext js --report-unused-disable-directives --max-warnings 0 --fix"
+  },
   "author": "stewart",
   "license": "MIT",
   "dependencies": {
@@ -40,6 +39,7 @@
   "devDependencies": {
     "@stylistic/eslint-plugin": "^1.5.1",
     "chai": "^4.5.0",
+    "chai-http": "^5.0.0",
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
