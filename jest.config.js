@@ -1,6 +1,7 @@
-export default {
-  transform: {
-    '^.+\\.(t|j)s$': 'babel-jest',
-  },
+module.exports = {
   testEnvironment: 'node',
+  transform: {
+    '^.+\\.[jt]sx?$': 'babel-jest',
+  },
 };
+

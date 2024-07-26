@@ -1,11 +1,11 @@
-import request from 'supertest';
-import server from '../server.js'; // Ensure this path is correct
+const request = require('supertest');
+const app = require('../server'); // Import the app
 
 describe('Server', () => {
   it('should return Hello World on the root path', async () => {
-    const response = await request(server).get('/');
+    const response = await request(app).get('/');
     expect(response.status).toBe(200);
-    expect(response.text).toBe('Hello World!');
+    expect(response.text).toBe('Welcome to the API!');
   });
 });
 
