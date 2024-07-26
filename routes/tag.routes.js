@@ -1,6 +1,6 @@
 const express = require('express');
 const tagController = require('../controllers/tag.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.Middleware');
 
 const router = express.Router();
 
@@ -17,4 +17,6 @@ router.put('/tags/:tagId', authMiddleware, tagController.updateTag);
 router.delete('/tags/:tagId', authMiddleware, tagController.deleteTag);
 
 module.exports = router;
+
+
 
